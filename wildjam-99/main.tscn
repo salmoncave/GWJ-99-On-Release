@@ -1,47 +1,6 @@
 [gd_scene format=3 uid="uid://buj4o7tdhgj4t"]
 
-[ext_resource type="PackedScene" uid="uid://cbhgj724qsrnx" path="res://car/car.tscn" id="1_ig7tw"]
-[ext_resource type="Script" uid="uid://c4c30y6vrwv8h" path="res://camera_3d.gd" id="2_h2yge"]
-[ext_resource type="MeshLibrary" uid="uid://cin45ulx84ddl" path="res://assets/mesh_libraries/ml00.tres" id="3_h2yge"]
+[ext_resource type="Script" uid="uid://6837efpgovnl" path="res://main.gd" id="1_ig7tw"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xm2m"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-
-[sub_resource type="Sky" id="Sky_h2yge"]
-sky_material = SubResource("ProceduralSkyMaterial_0xm2m")
-
-[sub_resource type="Environment" id="Environment_1bvp3"]
-background_mode = 2
-sky = SubResource("Sky_h2yge")
-
-[node name="Node3D" type="Node3D" unique_id=17975986]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=212871627]
-environment = SubResource("Environment_1bvp3")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1496683793]
-transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
-shadow_enabled = true
-
-[node name="Car" parent="." unique_id=933049672 instance=ExtResource("1_ig7tw")]
-transform = Transform3D(1, 0, -1.7484555e-07, 0, 1, 0, 1.7484555e-07, 0, 1, 0.45, 0.6, 3.239)
-deceleration = 0.0
-starting_engine_force = 1000.0
-
-[node name="Camera3D" type="Camera3D" parent="." unique_id=583861964 node_paths=PackedStringArray("follow_target", "look_at_target")]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 3.3204288, 34.246376)
-script = ExtResource("2_h2yge")
-follow_target = NodePath("../Car")
-look_at_target = NodePath("../Car")
-
-[node name="GridMap" type="GridMap" parent="." unique_id=242090949]
-mesh_library = ExtResource("3_h2yge")
-cell_size = Vector3(1, 1, 1)
-data = {
-"cells": PackedInt32Array(1, 65528, 7, 0, 65528, 20, 0, 65532, 20, 0, 0, 20)
-}
-
-[node name="Camera3D2" type="Camera3D" parent="." unique_id=1593653450]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 4, 3, -8)
-fov = 61.046925
+[node name="Main" type="Node" unique_id=1977816408]
+script = ExtResource("1_ig7tw")
