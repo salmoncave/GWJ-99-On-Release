@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cehhwxr1b4abj"
-path="res://.godot/imported/car_wheel_00.png-233d4853581fde2f6d2653dc9fea65f9.ctex"
+uid="uid://bi63sypkdt6fu"
+path="res://.godot/imported/7.png-e0aed716c013023b01cf72b1be33fa25.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://car/car_wheel_00.png"
-dest_files=["res://.godot/imported/car_wheel_00.png-233d4853581fde2f6d2653dc9fea65f9.ctex"]
+source_file="res://parallax/test_00/7.png"
+dest_files=["res://.godot/imported/7.png-e0aed716c013023b01cf72b1be33fa25.ctex"]
 
 [params]
 

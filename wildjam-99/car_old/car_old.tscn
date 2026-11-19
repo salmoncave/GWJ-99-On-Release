@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://cbhgj724qsrnx"]
 
-[ext_resource type="Texture2D" uid="uid://27bat56qp1r" path="res://car/car_sprite_00.png" id="1_2gitb"]
-[ext_resource type="Script" uid="uid://28f47eoboswl" path="res://car/car.gd" id="1_hkabp"]
-[ext_resource type="Texture2D" uid="uid://cehhwxr1b4abj" path="res://car/car_wheel_00.png" id="2_dxy33"]
+[ext_resource type="Script" uid="uid://28f47eoboswl" path="res://car_old/car_old.gd" id="1_3afyv"]
+[ext_resource type="Texture2D" uid="uid://27bat56qp1r" path="res://car_old/car_sprite_00.png" id="2_qe0er"]
+[ext_resource type="Texture2D" uid="uid://cehhwxr1b4abj" path="res://car_old/car_wheel_00.png" id="3_q02ww"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i2p60"]
 radius = 16.0
@@ -13,30 +13,30 @@ radius = 37.12142
 
 [node name="Car" type="CharacterBody2D" unique_id=356503377]
 motion_mode = 1
-script = ExtResource("1_hkabp")
+script = ExtResource("1_3afyv")
 
 [node name="CarSprite" type="Sprite2D" parent="." unique_id=208194699]
 unique_name_in_owner = true
 rotation = 1.5707964
-texture = ExtResource("1_2gitb")
+texture = ExtResource("2_qe0er")
 
 [node name="wheel_front_left" type="Sprite2D" parent="CarSprite" unique_id=2001917937]
 unique_name_in_owner = true
 position = Vector2(-10, -18)
-texture = ExtResource("2_dxy33")
+texture = ExtResource("3_q02ww")
 
 [node name="wheel_front_right" type="Sprite2D" parent="CarSprite" unique_id=2053834715]
 unique_name_in_owner = true
 position = Vector2(10, -18)
-texture = ExtResource("2_dxy33")
+texture = ExtResource("3_q02ww")
 
 [node name="wheel_rear_right" type="Sprite2D" parent="CarSprite" unique_id=807094857]
 position = Vector2(12, 18)
-texture = ExtResource("2_dxy33")
+texture = ExtResource("3_q02ww")
 
 [node name="wheel_rear_left" type="Sprite2D" parent="CarSprite" unique_id=1105141040]
 position = Vector2(-12, 18)
-texture = ExtResource("2_dxy33")
+texture = ExtResource("3_q02ww")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1890250416]
 rotation = 1.5707964
