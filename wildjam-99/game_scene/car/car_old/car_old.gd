@@ -1,4 +1,4 @@
-class_name Car extends CharacterBody2D
+extends CharacterBody2D
 
 ##The angle by which the car attempts to steer when L/R is engaged
 @export var steering_angle := 15

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dlythqqem6koo"
-path="res://.godot/imported/2.png-2547b8b5394382445c1ce22156aeab3f.ctex"
+uid="uid://k8t8v5a4vf7m"
+path="res://.godot/imported/barrier.png-c67c6beaaeedf3e0b92000da1846698b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://parallax/test_00/2.png"
-dest_files=["res://.godot/imported/2.png-2547b8b5394382445c1ce22156aeab3f.ctex"]
+source_file="res://game_scene/parallax/test_00/barrier.png"
+dest_files=["res://.godot/imported/barrier.png-c67c6beaaeedf3e0b92000da1846698b.ctex"]
 
 [params]
 

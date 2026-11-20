@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2yliwq3a4aty"
-path="res://.godot/imported/road_lines.png-760161b12c621025fbe296f96083a4cf.ctex"
+uid="uid://crr0odcv5k3a3"
+path="res://.godot/imported/4.png-7546483c753b6a2653c8310d4d1ff4a0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://parallax/road_lines.png"
-dest_files=["res://.godot/imported/road_lines.png-760161b12c621025fbe296f96083a4cf.ctex"]
+source_file="res://game_scene/parallax/test_00/4.png"
+dest_files=["res://.godot/imported/4.png-7546483c753b6a2653c8310d4d1ff4a0.ctex"]
 
 [params]
 

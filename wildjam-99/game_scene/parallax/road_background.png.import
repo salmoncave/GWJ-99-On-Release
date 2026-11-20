@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bi63sypkdt6fu"
-path="res://.godot/imported/7.png-e0aed716c013023b01cf72b1be33fa25.ctex"
+uid="uid://lqt3nanmt8ub"
+path="res://.godot/imported/road_background.png-68196d78996743af1ce36bdf01c5ef22.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://parallax/test_00/7.png"
-dest_files=["res://.godot/imported/7.png-e0aed716c013023b01cf72b1be33fa25.ctex"]
+source_file="res://game_scene/parallax/road_background.png"
+dest_files=["res://.godot/imported/road_background.png-68196d78996743af1ce36bdf01c5ef22.ctex"]
 
 [params]
 

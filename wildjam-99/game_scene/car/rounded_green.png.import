@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://copq1ijc5ix56"
-path="res://.godot/imported/roadTextures_tilesheet.png-82334448ae255265b5556451416dda27.ctex"
+uid="uid://c7b2qnjvv4ab5"
+path="res://.godot/imported/rounded_green.png-c9022c042738ddbabfd7af10fc0a69d5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://tilesheet/roadTextures_tilesheet.png"
-dest_files=["res://.godot/imported/roadTextures_tilesheet.png-82334448ae255265b5556451416dda27.ctex"]
+source_file="res://game_scene/car/rounded_green.png"
+dest_files=["res://.godot/imported/rounded_green.png-c9022c042738ddbabfd7af10fc0a69d5.ctex"]
 
 [params]
 

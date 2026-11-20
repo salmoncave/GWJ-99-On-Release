@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://crr0odcv5k3a3"
-path="res://.godot/imported/4.png-4bd90882708f1ffaad9015edc4da0435.ctex"
+uid="uid://bk4c2dcjp2fmk"
+path="res://.godot/imported/police.png-6d07161474a12a76d56d2b2312f662fe.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://parallax/test_00/4.png"
-dest_files=["res://.godot/imported/4.png-4bd90882708f1ffaad9015edc4da0435.ctex"]
+source_file="res://police_car/police.png"
+dest_files=["res://.godot/imported/police.png-6d07161474a12a76d56d2b2312f662fe.ctex"]
 
 [params]
 

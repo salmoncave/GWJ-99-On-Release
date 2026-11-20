@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7b2qnjvv4ab5"
-path="res://.godot/imported/rounded_green.png-324196a71f152feafc5c2b99d9d8c753.ctex"
+uid="uid://bi63sypkdt6fu"
+path="res://.godot/imported/7.png-7a82d03f9660ea052e46406b6efe26a2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://parallax/test_00/rounded_green.png"
-dest_files=["res://.godot/imported/rounded_green.png-324196a71f152feafc5c2b99d9d8c753.ctex"]
+source_file="res://game_scene/parallax/test_00/7.png"
+dest_files=["res://.godot/imported/7.png-7a82d03f9660ea052e46406b6efe26a2.ctex"]
 
 [params]
 

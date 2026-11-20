@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://clrgievrvp10l"]
+
+[ext_resource type="Script" uid="uid://soq8sxv6stve" path="res://police_car/police_car.gd" id="1_ol8kq"]
+[ext_resource type="Texture2D" uid="uid://bk4c2dcjp2fmk" path="res://police_car/police.png" id="2_ol8kq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i2p60"]
+size = Vector2(64, 26)
+
+[node name="PoliceCar" type="CharacterBody2D" unique_id=38859786]
+script = ExtResource("1_ol8kq")
+
+[node name="CarSprite" type="Sprite2D" parent="." unique_id=1840196106]
+unique_name_in_owner = true
+scale = Vector2(2, 2)
+texture = ExtResource("2_ol8kq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=902585027]
+shape = SubResource("RectangleShape2D_i2p60")

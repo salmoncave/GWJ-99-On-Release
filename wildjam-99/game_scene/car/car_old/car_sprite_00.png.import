@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://br2r70hvqmcma"
-path="res://.godot/imported/uncolored_piramids.png-05597bb357d990a223d7c59576659283.ctex"
+uid="uid://27bat56qp1r"
+path="res://.godot/imported/car_sprite_00.png-d94693a08f917127620513a38bb13ce8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://parallax/uncolored_piramids.png"
-dest_files=["res://.godot/imported/uncolored_piramids.png-05597bb357d990a223d7c59576659283.ctex"]
+source_file="res://game_scene/car/car_old/car_sprite_00.png"
+dest_files=["res://.godot/imported/car_sprite_00.png-d94693a08f917127620513a38bb13ce8.ctex"]
 
 [params]
 

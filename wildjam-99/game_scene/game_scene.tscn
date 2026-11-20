@@ -1,0 +1,147 @@
+[gd_scene format=3 uid="uid://bdmn8nbrkcnto"]
+
+[ext_resource type="Script" uid="uid://bnxmmrukpa5yx" path="res://game_scene/parallax_layers.gd" id="1_8c41q"]
+[ext_resource type="Script" uid="uid://chsuam2t0c4ao" path="res://game_scene/game_scene.gd" id="1_mmqx0"]
+[ext_resource type="Texture2D" uid="uid://dksacj7mingd5" path="res://game_scene/parallax/test_00/1.png" id="2_olg7q"]
+[ext_resource type="Texture2D" uid="uid://dlythqqem6koo" path="res://game_scene/parallax/test_00/2.png" id="3_t1rx8"]
+[ext_resource type="Texture2D" uid="uid://c1wcwgefltmtd" path="res://game_scene/parallax/test_00/3.png" id="4_8iemx"]
+[ext_resource type="Texture2D" uid="uid://crr0odcv5k3a3" path="res://game_scene/parallax/test_00/4.png" id="5_64w2a"]
+[ext_resource type="Texture2D" uid="uid://2yliwq3a4aty" path="res://game_scene/parallax/road_lines.png" id="6_fpun6"]
+[ext_resource type="Texture2D" uid="uid://xt51wr2rq2jy" path="res://game_scene/parallax/test_00/5.png" id="7_wc255"]
+[ext_resource type="Texture2D" uid="uid://lqt3nanmt8ub" path="res://game_scene/parallax/road_background.png" id="8_arp2o"]
+[ext_resource type="PackedScene" uid="uid://vfy6sargg52i" path="res://game_scene/car/player_car.tscn" id="9_ux5qa"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_cminf"]
+noise_type = 2
+seed = 13
+frequency = 0.1676
+fractal_type = 3
+domain_warp_enabled = true
+domain_warp_type = 1
+domain_warp_fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_i2p60"]
+width = 256
+height = 324
+noise = SubResource("FastNoiseLite_cminf")
+seamless = true
+invert = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i2p60"]
+size = Vector2(1280, 32)
+
+[node name="GameScene" type="Node" unique_id=1661399133 node_paths=PackedStringArray("player", "lane_markers_center")]
+script = ExtResource("1_mmqx0")
+player = NodePath("PlayerCar")
+lane_markers_center = [NodePath("LaneMarkers/Center_Lane00"), NodePath("LaneMarkers/Center_Lane01"), NodePath("LaneMarkers/Center_Lane02"), NodePath("LaneMarkers/Center_Lane03")]
+metadata/_edit_horizontal_guides_ = [212.0]
+
+[node name="ParallaxLayers" type="Node2D" parent="." unique_id=1398437692]
+position = Vector2(0, -162)
+script = ExtResource("1_8c41q")
+
+[node name="Background" type="Parallax2D" parent="ParallaxLayers" unique_id=1569063094]
+repeat_size = Vector2(576, 0)
+repeat_times = 6
+
+[node name="background" type="Sprite2D" parent="ParallaxLayers/Background" unique_id=276686787]
+texture = ExtResource("2_olg7q")
+
+[node name="background_flipped" type="Sprite2D" parent="ParallaxLayers/Background" unique_id=54678015]
+position = Vector2(0, 324)
+rotation = 3.1415927
+texture = ExtResource("2_olg7q")
+
+[node name="DistantBuildings" type="Parallax2D" parent="ParallaxLayers" unique_id=1246375353]
+repeat_size = Vector2(576, 0)
+repeat_times = 6
+
+[node name="2" type="Sprite2D" parent="ParallaxLayers/DistantBuildings" unique_id=1910645773]
+texture = ExtResource("3_t1rx8")
+
+[node name="FarBuildings" type="Parallax2D" parent="ParallaxLayers" unique_id=679411491]
+repeat_size = Vector2(576, 0)
+autoscroll = Vector2(-50, 0)
+repeat_times = 6
+
+[node name="3" type="Sprite2D" parent="ParallaxLayers/FarBuildings" unique_id=894628955]
+texture = ExtResource("4_8iemx")
+
+[node name="NearBuildings" type="Parallax2D" parent="ParallaxLayers" unique_id=622540917]
+repeat_size = Vector2(576, 0)
+autoscroll = Vector2(-75, 0)
+repeat_times = 6
+
+[node name="4" type="Sprite2D" parent="ParallaxLayers/NearBuildings" unique_id=2041829707]
+texture = ExtResource("5_64w2a")
+
+[node name="RoadParallax" type="Parallax2D" parent="ParallaxLayers" unique_id=999438330]
+scroll_offset = Vector2(0, 262)
+repeat_size = Vector2(256, 0)
+autoscroll = Vector2(-100, 0)
+repeat_times = 70
+
+[node name="RoadLines" type="Sprite2D" parent="ParallaxLayers/RoadParallax" unique_id=712963311]
+z_index = 1
+position = Vector2(0, 75)
+texture = ExtResource("6_fpun6")
+
+[node name="RoadLines2" type="Sprite2D" parent="ParallaxLayers/RoadParallax" unique_id=1402287250]
+z_index = 1
+texture = ExtResource("6_fpun6")
+
+[node name="RoadLines3" type="Sprite2D" parent="ParallaxLayers/RoadParallax" unique_id=737889264]
+z_index = 1
+position = Vector2(0, -75)
+texture = ExtResource("6_fpun6")
+
+[node name="RoadNoise" type="Sprite2D" parent="ParallaxLayers/RoadParallax" unique_id=566216248]
+self_modulate = Color(1, 1, 1, 0.039215688)
+z_index = 2
+texture = SubResource("NoiseTexture2D_i2p60")
+
+[node name="ForegroundBuildings" type="Parallax2D" parent="ParallaxLayers" unique_id=913446348]
+scroll_offset = Vector2(0, 389)
+repeat_size = Vector2(576, 0)
+autoscroll = Vector2(-100, 0)
+repeat_times = 6
+
+[node name="FrontLayer" type="Sprite2D" parent="ParallaxLayers/ForegroundBuildings" unique_id=2097333517]
+z_index = 10
+texture = ExtResource("7_wc255")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2030739423]
+position = Vector2(0, 100)
+texture = ExtResource("8_arp2o")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Sprite2D" unique_id=661838178]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/StaticBody2D" unique_id=227628690]
+position = Vector2(0, -157)
+shape = SubResource("RectangleShape2D_i2p60")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Sprite2D/StaticBody2D" unique_id=507752381]
+position = Vector2(0, 157)
+shape = SubResource("RectangleShape2D_i2p60")
+
+[node name="PlayerCar" parent="." unique_id=38859786 instance=ExtResource("9_ux5qa")]
+z_index = 5
+position = Vector2(-281, 136)
+
+[node name="ObstacleSpawner" type="Node2D" parent="." unique_id=1670541412]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=2095920654]
+
+[node name="LaneMarkers" type="Node2D" parent="." unique_id=56157513]
+
+[node name="Center_Lane00" type="Marker2D" parent="LaneMarkers" unique_id=1452814641]
+position = Vector2(0, -12)
+
+[node name="Center_Lane01" type="Marker2D" parent="LaneMarkers" unique_id=1478420728]
+position = Vector2(0, 63)
+
+[node name="Center_Lane02" type="Marker2D" parent="LaneMarkers" unique_id=1850393876]
+position = Vector2(0, 138)
+
+[node name="Center_Lane03" type="Marker2D" parent="LaneMarkers" unique_id=153358102]
+position = Vector2(0, 212)
