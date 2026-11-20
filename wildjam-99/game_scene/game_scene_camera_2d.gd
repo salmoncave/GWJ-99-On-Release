@@ -6,11 +6,11 @@ var is_zooming: bool = false
 var zoom_duration: float = 0.75
 var zoom_max: float = 2.0
 
-func _physics_process(_delta: float) -> void:
-	if Input.is_action_just_pressed("debug_00"):
-		perform_camera_zoom(true)
-	elif Input.is_action_just_pressed("debug_01"):
-		perform_camera_zoom(false)
+#func _physics_process(_delta: float) -> void:
+	#if Input.is_action_just_pressed("debug_00"):
+		#perform_camera_zoom(true)
+	#elif Input.is_action_just_pressed("debug_01"):
+		#perform_camera_zoom(false)
 
 #func zoom_in_on_player(delta: float) -> void:
 	#global_position = global_position.move_toward(player_car.global_position, move_speed * delta)

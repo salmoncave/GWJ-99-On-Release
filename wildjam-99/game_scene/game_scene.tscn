@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://lqt3nanmt8ub" path="res://game_scene/parallax/road_background.png" id="8_arp2o"]
 [ext_resource type="PackedScene" uid="uid://vfy6sargg52i" path="res://game_scene/car/player_car.tscn" id="9_ux5qa"]
 [ext_resource type="Script" uid="uid://c4pruj6sers0r" path="res://game_scene/game_scene_camera_2d.gd" id="11_fx1fl"]
+[ext_resource type="Shader" uid="uid://nc76lmujixnv" path="res://game_scene/shader_speed_lines.gdshader" id="12_adbct"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_cminf"]
 noise_type = 2
@@ -30,6 +31,26 @@ invert = true
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i2p60"]
 size = Vector2(1280, 32)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_cvb1i"]
+noise_type = 5
+frequency = 0.2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_adbct"]
+width = 1152
+height = 648
+noise = SubResource("FastNoiseLite_cvb1i")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fx1fl"]
+shader = ExtResource("12_adbct")
+shader_parameter/noise = SubResource("NoiseTexture2D_adbct")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_count = 2.0
+shader_parameter/line_density = 1.0
+shader_parameter/line_faloff = 1.0
+shader_parameter/mask_size = 0.1
+shader_parameter/mask_edge = 1.0
+shader_parameter/animation_speed = 20.0
 
 [node name="GameScene" type="Node" unique_id=1661399133 node_paths=PackedStringArray("player", "lane_markers_center")]
 script = ExtResource("1_mmqx0")
@@ -140,6 +161,7 @@ position = Vector2(-281, 136)
 [node name="ObstacleSpawner" type="Node2D" parent="." unique_id=1670541412]
 
 [node name="GameSceneCamera2D" type="Camera2D" parent="." unique_id=2095920654 node_paths=PackedStringArray("player_car")]
+unique_name_in_owner = true
 limit_bottom = 324
 script = ExtResource("11_fx1fl")
 player_car = NodePath("../PlayerCar")
@@ -157,3 +179,18 @@ position = Vector2(0, 138)
 
 [node name="Center_Lane03" type="Marker2D" parent="LaneMarkers" unique_id=153358102]
 position = Vector2(0, 212)
+
+[node name="LaunchForceTimer" type="Timer" parent="." unique_id=328408574]
+unique_name_in_owner = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1213812583]
+
+[node name="SpeedLineColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1575158953]
+unique_name_in_owner = true
+visible = false
+material = SubResource("ShaderMaterial_fx1fl")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

@@ -1,7 +1,7 @@
 extends Node
 
 ##Should go up as the level continues, actually drives the scale of scrolling
-var car_speed := 0.0:
+var car_speed := 500.0:
 		set(value):
 			car_speed = value
 			#cosmetic_speed = car_speed_multiplier * _cosmetic_speed_multiplier
