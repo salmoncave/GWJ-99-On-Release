@@ -6,7 +6,7 @@ class_name GameScene extends Node
 
 var current_lane: int = 0
 var _num_lanes: int = 4
-var _lane_shift_speed: float = 200.0
+var _lane_shift_speed: float = 300.0
 
 var _is_changing_lanes: bool = false
 
@@ -42,7 +42,7 @@ func shift_player_up() -> void:
 
 func shift_player_down() -> void:
 	#can't move below bottom lane
-	if current_lane == 3:
+	if current_lane == (_num_lanes - 1):
 		return
 	
 	change_player_lane(current_lane + 1)
@@ -54,3 +54,9 @@ func change_player_lane(new_lane_num: int) -> void:
 func place_player_on_lane(lane_num: int) -> void:
 	current_lane = lane_num
 	player.global_position.y = lane_markers_center[lane_num].global_position.y
+
+func start_pull_back_cutscene() -> void:
+	pass
+
+func launch_car() -> void:
+	pass

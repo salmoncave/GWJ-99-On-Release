@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://xt51wr2rq2jy" path="res://game_scene/parallax/test_00/5.png" id="7_wc255"]
 [ext_resource type="Texture2D" uid="uid://lqt3nanmt8ub" path="res://game_scene/parallax/road_background.png" id="8_arp2o"]
 [ext_resource type="PackedScene" uid="uid://vfy6sargg52i" path="res://game_scene/car/player_car.tscn" id="9_ux5qa"]
+[ext_resource type="Script" uid="uid://c4pruj6sers0r" path="res://game_scene/game_scene_camera_2d.gd" id="11_fx1fl"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_cminf"]
 noise_type = 2
@@ -36,9 +37,17 @@ player = NodePath("PlayerCar")
 lane_markers_center = [NodePath("LaneMarkers/Center_Lane00"), NodePath("LaneMarkers/Center_Lane01"), NodePath("LaneMarkers/Center_Lane02"), NodePath("LaneMarkers/Center_Lane03")]
 metadata/_edit_horizontal_guides_ = [212.0]
 
-[node name="ParallaxLayers" type="Node2D" parent="." unique_id=1398437692]
+[node name="ParallaxLayers" type="Node2D" parent="." unique_id=1398437692 node_paths=PackedStringArray("layers_auto_scroll_multiplier")]
 position = Vector2(0, -162)
 script = ExtResource("1_8c41q")
+layers_auto_scroll_multiplier = {
+NodePath("Background"): 0.0,
+NodePath("DistantBuildings"): 0.0,
+NodePath("FarBuildings"): 0.25,
+NodePath("NearBuildings"): 0.5,
+NodePath("RoadParallax"): 1.0,
+NodePath("ForegroundBuildings"): 1.25
+}
 
 [node name="Background" type="Parallax2D" parent="ParallaxLayers" unique_id=1569063094]
 repeat_size = Vector2(576, 0)
@@ -130,7 +139,10 @@ position = Vector2(-281, 136)
 
 [node name="ObstacleSpawner" type="Node2D" parent="." unique_id=1670541412]
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=2095920654]
+[node name="GameSceneCamera2D" type="Camera2D" parent="." unique_id=2095920654 node_paths=PackedStringArray("player_car")]
+limit_bottom = 324
+script = ExtResource("11_fx1fl")
+player_car = NodePath("../PlayerCar")
 
 [node name="LaneMarkers" type="Node2D" parent="." unique_id=56157513]
 
