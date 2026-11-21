@@ -1,8 +1,13 @@
 class_name GameScene extends Node
 
-@export var player: PlayerCar = null
+const DEFAULT_LANE_SHIFT_SPEED := 300.0
 
+
+@export var player: PlayerCar = null
+@export var explosion_particles: PackedScene
 @export var lane_markers_center: Array[Marker2D] = []
+
+
 @onready var game_scene_camera_2d: GameSceneCamera2D = %GameSceneCamera2D
 @onready var speed_line_color_rect: ColorRect = %SpeedLineColorRect
 @onready var traffic_light: TrafficLight = %TrafficLight
@@ -16,6 +21,7 @@ var _lane_shift_speed: float = 300.0
 var _is_changing_lanes: bool = false
 var _in_pullback_cutscene: bool = false
 var _is_pulling_back_car: bool = false
+#var _can_change_lanes: bool = true
 
 var _pre_pull_back_speed: float = 0.0
 #var _pre_pull_player_x: float = 0.0
@@ -25,24 +31,68 @@ var _pull_back_speed: float = 200.0
 #var _launch_speed_stage: int = 0
 var _launch_speed_stage_multipler := [0.8, 1.0, 1.2, 0.8]
 
+var _speed_line_tween: Tween
+
 func _ready() -> void:
 	_place_player_on_lane(0)
 	_start_pull_back_cutscene()
 	
-	#pass
+	_lane_shift_speed = DEFAULT_LANE_SHIFT_SPEED
+	
+	SignalBus.spawn_temporary_speed_lines.connect(
+		_tween_temporary_speed_lines.bind(true)
+	)
+	
+	SignalBus.car_speed_updated.connect(
+		_on_signal_bus_car_speed_updated
+	)
+	
+	road_object_spawner.player_collided_with_car.connect(
+		_on_player_collided_with_car
+	)
+	
 
 func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("debug_00"):
-		_start_pull_back_cutscene()
+	#if Input.is_action_just_pressed("debug_00"):
+		#_start_pull_back_cutscene()
 	
 	if _in_pullback_cutscene:
 		if Input.is_action_just_pressed("pull_back") and not _is_pulling_back_car:
 			_start_pull_back()
 		if _is_pulling_back_car:
 			_process_pull_back(delta)
+		
 		return
 	
 	_process_player_movement(delta)
+
+func _on_player_collided_with_car(collided_car: RoadObjectCar) -> void:
+	#_can_change_lanes = false
+	#hud.visible = false
+	#_pause_global_car_speed()
+	
+	var _explosion_particles := explosion_particles.instantiate() as GPUParticles2D
+	_explosion_particles.global_position = player.global_position
+	add_child(_explosion_particles)
+	_explosion_particles.emitting = true
+	
+	player.visible = false
+	collided_car.global_position.x = player.global_position.x
+	player.global_position.y = collided_car.global_position.y
+	player.car_sprite.texture = collided_car.object_sprite_2d.texture
+	current_lane = collided_car.lane
+	
+	player.visible = true
+	collided_car.visible = false
+	collided_car.queue_free()
+	
+	_start_pull_back_cutscene()
+	
+	#hud.visible = true
+	#_can_change_lanes = true
+
+func _on_signal_bus_car_speed_updated(new_speed: float) -> void:
+	_lane_shift_speed = clampf(DEFAULT_LANE_SHIFT_SPEED + (new_speed / 10.0), DEFAULT_LANE_SHIFT_SPEED, 550.0)
 
 func _start_pull_back() -> void:
 	#_pre_pull_player_x = player.global_position.x
@@ -66,18 +116,18 @@ func _process_pull_back(delta: float) -> void:
 func _launch_car(launch_force: float) -> void:
 	var tween_duration := 50.0 / launch_force
 	var release_tween := create_tween()
-	var starting_mask_size := 1.0
-	var ending_mask_size := 0.1
+	#var starting_mask_size := 1.0
+	#var ending_mask_size := 0.1
 	
+	_tween_temporary_speed_lines(false)
 	game_scene_camera_2d.perform_camera_zoom(false)
-	_set_speed_line_mask_size(starting_mask_size)
-	speed_line_color_rect.visible = true
+	
 	release_tween.set_parallel(true)
 	release_tween.tween_property(player.car_sprite, "position", Vector2.ZERO, tween_duration)
-	release_tween.tween_method(_set_speed_line_mask_size, starting_mask_size, ending_mask_size, tween_duration)
 	await release_tween.finished
 	
 	_in_pullback_cutscene = false
+	_is_pulling_back_car = false
 	
 	traffic_light.stop_traffic_light()
 	
@@ -86,10 +136,32 @@ func _launch_car(launch_force: float) -> void:
 	traffic_light.disable_traffic_light()
 	hud.visible = true
 	road_object_spawner.resume_spawning_objects()
+
+func _tween_temporary_speed_lines(short: bool) -> void:
+	var starting_mask_size := 1.0
+	var ending_mask_size := 0.1
+	var initial_tween_duration := 0.25
+	var lines_on_screen_duration := 1.0 if short else 2.0
+	var fade_away_duration := 2.0 if short else 5.0
 	
-	release_tween = create_tween()
-	release_tween.tween_method(_set_speed_line_mask_size, ending_mask_size, starting_mask_size, 7.5)
-	await release_tween.finished
+	if _speed_line_tween and _speed_line_tween.is_running():
+		_speed_line_tween.stop()
+	
+	_speed_line_tween = create_tween()
+	
+	_set_speed_line_mask_size(starting_mask_size)
+	
+	speed_line_color_rect.visible = true
+	
+	_speed_line_tween.tween_method(
+		_set_speed_line_mask_size, starting_mask_size, ending_mask_size, initial_tween_duration
+		)
+	
+	_speed_line_tween.tween_method(
+		_set_speed_line_mask_size, ending_mask_size, starting_mask_size, fade_away_duration
+		).set_delay(lines_on_screen_duration)
+	
+	await _speed_line_tween.finished
 	speed_line_color_rect.visible = false
 
 func _set_speed_line_mask_size(new_mask_size: float) -> void:
@@ -140,6 +212,9 @@ func _start_pull_back_cutscene() -> void:
 	road_object_spawner.pause_spawning_objects()
 	hud.visible = false
 	_in_pullback_cutscene = true
+	_pause_global_car_speed()
+	game_scene_camera_2d.perform_camera_zoom(true)
+
+func _pause_global_car_speed() -> void:
 	_pre_pull_back_speed = Global.car_speed
 	Global.car_speed = 0.0
-	game_scene_camera_2d.perform_camera_zoom(true)

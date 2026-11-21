@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://cn8iq22tnfnhg"]
+
+[ext_resource type="PackedScene" uid="uid://bctphovllcxxj" path="res://game_scene/road_objects/road_object.tscn" id="1_bqf4f"]
+[ext_resource type="Script" uid="uid://bomdvjjq0b5n7" path="res://game_scene/road_objects/road_object_slowdown/road_object_slowdown.gd" id="2_pdtt4"]
+[ext_resource type="Texture2D" uid="uid://dxpadx7cu6ang" path="res://game_scene/road_objects/road_object_slowdown/box2.png" id="3_37wqq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_831pl"]
+radius = 18.027756
+
+[node name="RoadObjectSlowdown" unique_id=197609520 instance=ExtResource("1_bqf4f")]
+script = ExtResource("2_pdtt4")
+slowdown_multiplier = 0.8
+
+[node name="ObjectSprite2D" parent="." index="0" unique_id=994413717]
+visible = true
+scale = Vector2(2, 2)
+texture = ExtResource("3_37wqq")
+
+[node name="CollisionShape2D" parent="." index="2" unique_id=697956914]
+shape = SubResource("CircleShape2D_831pl")

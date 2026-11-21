@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://vfy6sargg52i"]
 
 [ext_resource type="Script" uid="uid://dewlaa17r5tme" path="res://game_scene/car/player_car.gd" id="1_exl2h"]
-[ext_resource type="Texture2D" uid="uid://c7b2qnjvv4ab5" path="res://game_scene/car/rounded_green.png" id="2_mp67m"]
+[ext_resource type="Texture2D" uid="uid://du2geb07p4u5d" path="res://game_scene/car/rounded_green.png" id="2_mp67m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i2p60"]
-size = Vector2(64, 26)
+size = Vector2(64, 25)
 
 [node name="PlayerCar" type="Node2D" unique_id=319096525]
 script = ExtResource("1_exl2h")
@@ -17,4 +17,5 @@ texture = ExtResource("2_mp67m")
 [node name="Area2D" type="Area2D" parent="." unique_id=95620837]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=902585027]
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_i2p60")

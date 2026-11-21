@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bnxmmrukpa5yx" path="res://game_scene/parallax_layers.gd" id="1_8c41q"]
 [ext_resource type="Script" uid="uid://chsuam2t0c4ao" path="res://game_scene/game_scene.gd" id="1_mmqx0"]
 [ext_resource type="Texture2D" uid="uid://dksacj7mingd5" path="res://game_scene/parallax/test_00/1.png" id="2_olg7q"]
+[ext_resource type="PackedScene" uid="uid://gvlpa2ryai0" path="res://game_scene/explosion_particles.tscn" id="2_xes44"]
 [ext_resource type="Texture2D" uid="uid://dlythqqem6koo" path="res://game_scene/parallax/test_00/2.png" id="3_t1rx8"]
 [ext_resource type="Texture2D" uid="uid://c1wcwgefltmtd" path="res://game_scene/parallax/test_00/3.png" id="4_8iemx"]
 [ext_resource type="Texture2D" uid="uid://crr0odcv5k3a3" path="res://game_scene/parallax/test_00/4.png" id="5_64w2a"]
@@ -58,6 +59,7 @@ shader_parameter/animation_speed = 20.0
 [node name="GameScene" type="Node" unique_id=1661399133 node_paths=PackedStringArray("player", "lane_markers_center")]
 script = ExtResource("1_mmqx0")
 player = NodePath("PlayerCar")
+explosion_particles = ExtResource("2_xes44")
 lane_markers_center = [NodePath("LaneMarkers/Center_Lane00"), NodePath("LaneMarkers/Center_Lane01"), NodePath("LaneMarkers/Center_Lane02"), NodePath("LaneMarkers/Center_Lane03")]
 metadata/_edit_horizontal_guides_ = [212.0]
 
@@ -169,6 +171,10 @@ position = Vector2(-281, 136)
 [node name="RoadObjectSpawner" parent="." unique_id=867003250 instance=ExtResource("12_wohtb")]
 unique_name_in_owner = true
 position = Vector2(626, 0)
+_spawn_interval_seconds = 1.0
+
+[node name="DespawnMarker2D" parent="RoadObjectSpawner" index="5" unique_id=178580155]
+position = Vector2(-1357, 0)
 
 [node name="GameSceneCamera2D" type="Camera2D" parent="." unique_id=2095920654 node_paths=PackedStringArray("player_car")]
 unique_name_in_owner = true
@@ -207,3 +213,5 @@ grow_vertical = 2
 
 [node name="Hud" parent="CanvasLayer" unique_id=245830356 instance=ExtResource("14_f63yk")]
 unique_name_in_owner = true
+
+[editable path="RoadObjectSpawner"]

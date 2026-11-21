@@ -17,6 +17,7 @@ func enable_traffic_light() -> void:
 
 func disable_traffic_light() -> void:
 	current_stage = 0
+	lights.frame = 0
 	visible = false
 
 func start_traffic_light() -> void:
@@ -27,17 +28,22 @@ func stop_traffic_light() -> void:
 	tween.stop()
 
 func _animate_traffic_light() -> void:
-	var text :=''
+	var text := ''
+	var color: Color
 	
 	match current_stage:
 		0:
 			text = 'READY'
+			color = Color.RED
 		1:
 			text = 'SET'
+			color = Color.YELLOW
 		2:
 			text = 'GO!'
+			color = Color.GREEN
 	
 	rich_text_label.text = text
+	rich_text_label.self_modulate = color
 	
 	tween = create_tween()
 	var tween_duration := 0.25

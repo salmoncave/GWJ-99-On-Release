@@ -1,18 +1,23 @@
 [gd_scene format=3 uid="uid://bctphovllcxxj"]
 
-[ext_resource type="Script" uid="uid://b44iv2uukrwgi" path="res://game_scene/road_objects/road_object_car.gd" id="1_mlwpq"]
+[ext_resource type="Script" uid="uid://dqgy6rpln3woq" path="res://game_scene/road_objects/road_object.gd" id="1_mlwpq"]
 [ext_resource type="Texture2D" uid="uid://c701eulrpbxke" path="res://icon.svg" id="2_gqhfg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v87w6"]
 size = Vector2(64, 64)
 
-[node name="RoadObjectCar" type="Area2D" unique_id=197609520]
+[node name="RoadObject" type="Area2D" unique_id=197609520]
 script = ExtResource("1_mlwpq")
 
 [node name="ObjectSprite2D" type="Sprite2D" parent="." unique_id=994413717]
 unique_name_in_owner = true
+visible = false
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_gqhfg")
+
+[node name="AnimatedObjectSprite2D" type="AnimatedSprite2D" parent="." unique_id=1429963552]
+unique_name_in_owner = true
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=697956914]
 shape = SubResource("RectangleShape2D_v87w6")

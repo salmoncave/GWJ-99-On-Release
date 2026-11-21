@@ -1,12 +1,14 @@
 [gd_scene format=3 uid="uid://dclcyy4vsmx6c"]
 
 [ext_resource type="Script" uid="uid://brg7aipgyddcy" path="res://game_scene/road_objects/road_object_spawner.gd" id="1_nqtkq"]
-[ext_resource type="PackedScene" uid="uid://bctphovllcxxj" path="res://game_scene/road_objects/road_object.tscn" id="2_2rifd"]
+[ext_resource type="PackedScene" uid="uid://hwrsh48lnjqi" path="res://game_scene/road_objects/road_object_boost/road_object_boost.tscn" id="2_b60fi"]
+[ext_resource type="PackedScene" uid="uid://dcm6x6tgrqncx" path="res://game_scene/road_objects/road_object_car/road_object_car.tscn" id="3_k8587"]
+[ext_resource type="PackedScene" uid="uid://cn8iq22tnfnhg" path="res://game_scene/road_objects/road_object_slowdown/road_object_slowdown.tscn" id="4_5310f"]
 
 [node name="RoadObjectSpawner" type="Node2D" unique_id=867003250 node_paths=PackedStringArray("spawn_points")]
 script = ExtResource("1_nqtkq")
 spawn_points = [NodePath("Spawn_Lane00"), NodePath("Spawn_Lane01"), NodePath("Spawn_Lane02"), NodePath("Spawn_Lane03")]
-road_object = ExtResource("2_2rifd")
+road_objects = Array[PackedScene]([ExtResource("2_b60fi"), ExtResource("3_k8587"), ExtResource("4_5310f")])
 
 [node name="Spawn_Lane00" type="Marker2D" parent="." unique_id=2004919281]
 position = Vector2(0, -12)
@@ -21,6 +23,9 @@ position = Vector2(0, 138)
 position = Vector2(0, 212)
 
 [node name="SpawnTimer" type="Timer" parent="." unique_id=469967382]
+unique_name_in_owner = true
+
+[node name="DespawnMarker2D" type="Marker2D" parent="." unique_id=178580155]
 unique_name_in_owner = true
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

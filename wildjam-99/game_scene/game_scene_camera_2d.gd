@@ -16,7 +16,7 @@ var zoom_max: float = 2.0
 	#global_position = global_position.move_toward(player_car.global_position, move_speed * delta)
 	#zoom = zoom.move_toward(Vector2.ONE * zoom_max, zoom_speed * delta)
 
-func perform_camera_zoom(is_zoom_in: bool) -> void:
+func perform_camera_zoom(is_zoom_in: bool) -> Tween:
 	is_zooming = true
 	var zoom_tween := create_tween()
 	
@@ -30,6 +30,8 @@ func perform_camera_zoom(is_zoom_in: bool) -> void:
 	zoom_tween.set_ease(desired_ease).set_trans(Tween.TRANS_SINE)
 	zoom_tween.tween_property(self, "zoom", desired_zoom, zoom_duration)
 	zoom_tween.tween_property(self, "global_position", desire_position, zoom_duration)
+	
+	return zoom_tween
 
 func _on_zoom_tween_finished() -> void:
 	is_zooming = false

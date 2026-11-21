@@ -2,16 +2,29 @@
 
 [ext_resource type="PackedScene" uid="uid://bctphovllcxxj" path="res://game_scene/road_objects/road_object.tscn" id="1_3ipsn"]
 [ext_resource type="Texture2D" uid="uid://qwslor74bdsu" path="res://game_scene/road_objects/road_object_car/sedan.png" id="2_e4msh"]
+[ext_resource type="Script" uid="uid://b44iv2uukrwgi" path="res://game_scene/road_objects/road_object_car/road_object_car.gd" id="2_uotbq"]
+[ext_resource type="Texture2D" uid="uid://bsdjfd7r1mgaa" path="res://game_scene/road_objects/road_object_car/convertible.png" id="3_fxitt"]
+[ext_resource type="Texture2D" uid="uid://b3a35y2wtkw8y" path="res://game_scene/road_objects/road_object_car/sedan_blue.png" id="5_x58j5"]
+[ext_resource type="Texture2D" uid="uid://dxw1w4kweahry" path="res://game_scene/road_objects/road_object_car/sedan_vintage.png" id="6_o47hf"]
+[ext_resource type="Texture2D" uid="uid://d1dambvdifll0" path="res://game_scene/road_objects/road_object_car/sports_green.png" id="7_r4dll"]
+[ext_resource type="Texture2D" uid="uid://fwypawq07ngp" path="res://game_scene/road_objects/road_object_car/station.png" id="8_wsf1w"]
+[ext_resource type="Texture2D" uid="uid://cet8ksyxdf0xv" path="res://game_scene/road_objects/road_object_car/suv_green.png" id="9_5wg30"]
+[ext_resource type="Texture2D" uid="uid://4eh1vxrlo12f" path="res://game_scene/road_objects/road_object_car/taxi.png" id="10_6swxb"]
+[ext_resource type="Texture2D" uid="uid://csnaxtv3vhsy0" path="res://game_scene/road_objects/road_object_car/van_small.png" id="11_ruqnn"]
+[ext_resource type="Texture2D" uid="uid://dkrisg48vv0i" path="res://game_scene/road_objects/road_object_car/vintage.png" id="12_jt24j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uotbq"]
 size = Vector2(64, 22)
 
-[node name="RoadObject" unique_id=197609520 instance=ExtResource("1_3ipsn")]
+[node name="RoadObjectCar" unique_id=197609520 instance=ExtResource("1_3ipsn")]
+script = ExtResource("2_uotbq")
+sprite_array = Array[Texture2D]([ExtResource("3_fxitt"), ExtResource("2_e4msh"), ExtResource("5_x58j5"), ExtResource("6_o47hf"), ExtResource("7_r4dll"), ExtResource("8_wsf1w"), ExtResource("9_5wg30"), ExtResource("10_6swxb"), ExtResource("11_ruqnn"), ExtResource("12_jt24j")])
 
-[node name="Sprite2D" parent="." index="0" unique_id=994413717]
+[node name="ObjectSprite2D" parent="." index="0" unique_id=994413717]
+visible = true
 scale = Vector2(2, 2)
 texture = ExtResource("2_e4msh")
 
-[node name="CollisionShape2D" parent="." index="1" unique_id=697956914]
+[node name="CollisionShape2D" parent="." index="2" unique_id=697956914]
 position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_uotbq")

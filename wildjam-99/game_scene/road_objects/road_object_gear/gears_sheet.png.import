@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bk4c2dcjp2fmk"
-path="res://.godot/imported/police.png-6d07161474a12a76d56d2b2312f662fe.ctex"
+uid="uid://dv8djsyfy1680"
+path="res://.godot/imported/gears_sheet.png-6653c5e52fc691645718b852ac3dac81.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://police_car/police.png"
-dest_files=["res://.godot/imported/police.png-6d07161474a12a76d56d2b2312f662fe.ctex"]
+source_file="res://game_scene/road_objects/road_object_gear/gears_sheet.png"
+dest_files=["res://.godot/imported/gears_sheet.png-6653c5e52fc691645718b852ac3dac81.ctex"]
 
 [params]
 

@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://hwrsh48lnjqi"]
+
+[ext_resource type="PackedScene" uid="uid://bctphovllcxxj" path="res://game_scene/road_objects/road_object.tscn" id="1_ofyfq"]
+[ext_resource type="Script" uid="uid://dbl1swufij61u" path="res://game_scene/road_objects/road_object_boost/road_object_boost.gd" id="2_4r3dy"]
+[ext_resource type="Texture2D" uid="uid://ck3y80ldqa4cv" path="res://game_scene/road_objects/road_object_boost/boost_pad.png" id="3_kgeqy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2d6yj"]
+atlas = ExtResource("3_kgeqy")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_papw8"]
+atlas = ExtResource("3_kgeqy")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y42id"]
+atlas = ExtResource("3_kgeqy")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xrfxr"]
+atlas = ExtResource("3_kgeqy")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uotbq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2d6yj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_papw8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y42id")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xrfxr")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="RoadObjectBoost" unique_id=197609520 instance=ExtResource("1_ofyfq")]
+script = ExtResource("2_4r3dy")
+boost_multiplier = 1.1
+
+[node name="AnimatedObjectSprite2D" parent="." index="1" unique_id=1429963552]
+visible = true
+sprite_frames = SubResource("SpriteFrames_uotbq")
+autoplay = "default"
+frame_progress = 0.27134946

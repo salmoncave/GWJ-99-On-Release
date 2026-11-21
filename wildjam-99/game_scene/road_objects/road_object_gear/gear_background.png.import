@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfxilguinqdff"
-path="res://.godot/imported/spritesheet_props.png-670d223e3ea33add0da2173815a3ae9a.ctex"
+uid="uid://w5lqkquplkoi"
+path="res://.godot/imported/gear_background.png-018a00256ba940ff5659cfed58a05256.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://game_scene/road_objects/spritesheet_props.png"
-dest_files=["res://.godot/imported/spritesheet_props.png-670d223e3ea33add0da2173815a3ae9a.ctex"]
+source_file="res://game_scene/road_objects/road_object_gear/gear_background.png"
+dest_files=["res://.godot/imported/gear_background.png-018a00256ba940ff5659cfed58a05256.ctex"]
 
 [params]
 
