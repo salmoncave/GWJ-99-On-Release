@@ -5,7 +5,8 @@ class_name GameScene extends Node
 @export var lane_markers_center: Array[Marker2D] = []
 @onready var game_scene_camera_2d: GameSceneCamera2D = %GameSceneCamera2D
 @onready var speed_line_color_rect: ColorRect = %SpeedLineColorRect
-
+@onready var traffic_light: TrafficLight = %TrafficLight
+@onready var hud: GameHUD = %Hud
 
 var current_lane: int = 0
 var _num_lanes: int = 4
@@ -20,7 +21,7 @@ var _pre_pull_back_speed: float = 0.0
 var _max_pull_back_deviation_x: float = 100.0
 var _pull_back_speed: float = 200.0
 #var _stored_launch_force: float = 0.0
-var _launch_speed_stage: int = 0
+#var _launch_speed_stage: int = 0
 var _launch_speed_stage_multipler := [0.8, 1.0, 1.2, 0.8]
 
 func _ready() -> void:
@@ -40,23 +41,27 @@ func _physics_process(delta: float) -> void:
 			_start_pull_back()
 		if _is_pulling_back_car:
 			_process_pull_back(delta)
+		return
 	
 	_process_player_movement(delta)
 
 func _start_pull_back() -> void:
 	#_pre_pull_player_x = player.global_position.x
+	traffic_light.place_light_above_player(player)
+	traffic_light.enable_traffic_light()
+	traffic_light.start_traffic_light()
 	_is_pulling_back_car = true
 
 ##Do spacebar first and add mouse later
 ##Pull back to extent, time it release with green light
 ##Multiplier for each color stage they waited I guess
 func _process_pull_back(delta: float) -> void:
-	if Input.is_action_pressed("pull_back"):
+	if traffic_light.current_stage == 3 or Input.is_action_just_released("pull_back"):
+		_launch_car(_pre_pull_back_speed)
+	elif Input.is_action_pressed("pull_back"):
 		player.car_sprite.position.x = clampf(
 			player.car_sprite.position.x - (_pull_back_speed * delta), - _max_pull_back_deviation_x, 0.0)
-		print(player.car_sprite.position.x)
-	elif Input.is_action_just_released("pull_back"):
-		_launch_car(_pre_pull_back_speed)
+
 		#_launch_car(_pre_pull_back_speed * _launch_speed_stage_multipler[_launch_speed_stage])
 
 func _launch_car(launch_force: float) -> void:
@@ -64,6 +69,7 @@ func _launch_car(launch_force: float) -> void:
 	var release_tween := create_tween()
 	var starting_mask_size := 1.0
 	var ending_mask_size := 0.1
+	
 	game_scene_camera_2d.perform_camera_zoom(false)
 	_set_speed_line_mask_size(starting_mask_size)
 	speed_line_color_rect.visible = true
@@ -71,8 +77,16 @@ func _launch_car(launch_force: float) -> void:
 	release_tween.tween_property(player.car_sprite, "position", Vector2.ZERO, tween_duration)
 	release_tween.tween_method(_set_speed_line_mask_size, starting_mask_size, ending_mask_size, tween_duration)
 	await release_tween.finished
+	
 	_in_pullback_cutscene = false
-	Global.car_speed = launch_force
+	
+	traffic_light.stop_traffic_light()
+	
+	Global.car_speed = roundf(launch_force * _launch_speed_stage_multipler[traffic_light.current_stage])
+	
+	traffic_light.disable_traffic_light()
+	hud.visible = true
+	
 	release_tween = create_tween()
 	release_tween.tween_method(_set_speed_line_mask_size, ending_mask_size, starting_mask_size, 7.5)
 	await release_tween.finished
@@ -123,6 +137,7 @@ func _place_player_on_lane(lane_num: int) -> void:
 	player.global_position.y = lane_markers_center[lane_num].global_position.y
 
 func _start_pull_back_cutscene() -> void:
+	hud.visible = false
 	_in_pullback_cutscene = true
 	_pre_pull_back_speed = Global.car_speed
 	Global.car_speed = 0.0

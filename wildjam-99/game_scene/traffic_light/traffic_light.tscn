@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://ccms4btdodlay"]
+
+[ext_resource type="Texture2D" uid="uid://b26haytti4bkg" path="res://game_scene/traffic_light/traffic_ligh11t.png" id="1_tg26a"]
+[ext_resource type="Script" uid="uid://kd8ail6n3kq3" path="res://game_scene/traffic_light/traffic_light.gd" id="2_eg5y2"]
+[ext_resource type="Texture2D" uid="uid://ca6mvae4iv36d" path="res://game_scene/traffic_light/traffic_lights.png" id="2_tg26a"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eg5y2"]
+atlas = ExtResource("2_tg26a")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w7pwd"]
+atlas = ExtResource("2_tg26a")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_edjwh"]
+atlas = ExtResource("2_tg26a")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i2p60"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eg5y2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w7pwd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_edjwh")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="TrafficLight" type="Sprite2D" unique_id=32034168]
+texture = ExtResource("1_tg26a")
+script = ExtResource("2_eg5y2")
+
+[node name="Lights" type="AnimatedSprite2D" parent="." unique_id=1093387668]
+unique_name_in_owner = true
+sprite_frames = SubResource("SpriteFrames_i2p60")

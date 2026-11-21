@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://vfy6sargg52i" path="res://game_scene/car/player_car.tscn" id="9_ux5qa"]
 [ext_resource type="Script" uid="uid://c4pruj6sers0r" path="res://game_scene/game_scene_camera_2d.gd" id="11_fx1fl"]
 [ext_resource type="Shader" uid="uid://nc76lmujixnv" path="res://game_scene/shader_speed_lines.gdshader" id="12_adbct"]
+[ext_resource type="PackedScene" uid="uid://ccms4btdodlay" path="res://game_scene/traffic_light/traffic_light.tscn" id="13_cvb1i"]
+[ext_resource type="PackedScene" uid="uid://bl2j8c4i3xjsc" path="res://game_scene/hud/hud.tscn" id="14_f63yk"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_cminf"]
 noise_type = 2
@@ -57,6 +59,11 @@ script = ExtResource("1_mmqx0")
 player = NodePath("PlayerCar")
 lane_markers_center = [NodePath("LaneMarkers/Center_Lane00"), NodePath("LaneMarkers/Center_Lane01"), NodePath("LaneMarkers/Center_Lane02"), NodePath("LaneMarkers/Center_Lane03")]
 metadata/_edit_horizontal_guides_ = [212.0]
+
+[node name="TrafficLight" parent="." unique_id=1093387668 instance=ExtResource("13_cvb1i")]
+unique_name_in_owner = true
+visible = false
+z_index = 10
 
 [node name="ParallaxLayers" type="Node2D" parent="." unique_id=1398437692 node_paths=PackedStringArray("layers_auto_scroll_multiplier")]
 position = Vector2(0, -162)
@@ -194,3 +201,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Hud" parent="CanvasLayer" unique_id=245830356 instance=ExtResource("14_f63yk")]
+unique_name_in_owner = true

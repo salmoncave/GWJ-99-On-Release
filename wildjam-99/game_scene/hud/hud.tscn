@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://bl2j8c4i3xjsc"]
+
+[ext_resource type="Script" uid="uid://bjxwhl8mcwx66" path="res://game_scene/hud/game_hud.gd" id="1_2nlin"]
+[ext_resource type="Theme" uid="uid://dnvql51ifguuf" path="res://game_scene/hud/hud_theme.tres" id="1_7imr4"]
+
+[sub_resource type="Gradient" id="Gradient_2nlin"]
+offsets = PackedFloat32Array(0, 0.25, 0.5, 0.75, 1)
+colors = PackedColorArray(1, 0, 0, 1, 1, 0.5254902, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1)
+
+[node name="Hud" type="Control" unique_id=245830356]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_7imr4")
+script = ExtResource("1_2nlin")
+color_gradient = SubResource("Gradient_2nlin")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=860833378]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="SpeedTextLabel" type="RichTextLabel" parent="MarginContainer" unique_id=1559924611]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "Speed"
+fit_content = true
+autowrap_mode = 0
