@@ -1,5 +1,11 @@
 extends Node
 
+enum CarSizes {
+	SMALL,
+	MEDIUM,
+	LARGE
+}
+
 const CAR_MAX_SPEED := 2500.0
 
 ##Should go up as the level continues, actually drives the scale of scrolling

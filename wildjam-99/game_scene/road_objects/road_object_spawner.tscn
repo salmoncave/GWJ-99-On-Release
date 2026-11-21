@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://dclcyy4vsmx6c"]
+
+[ext_resource type="Script" uid="uid://brg7aipgyddcy" path="res://game_scene/road_objects/road_object_spawner.gd" id="1_nqtkq"]
+[ext_resource type="PackedScene" uid="uid://bctphovllcxxj" path="res://game_scene/road_objects/road_object.tscn" id="2_2rifd"]
+
+[node name="RoadObjectSpawner" type="Node2D" unique_id=867003250 node_paths=PackedStringArray("spawn_points")]
+script = ExtResource("1_nqtkq")
+spawn_points = [NodePath("Spawn_Lane00"), NodePath("Spawn_Lane01"), NodePath("Spawn_Lane02"), NodePath("Spawn_Lane03")]
+road_object = ExtResource("2_2rifd")
+
+[node name="Spawn_Lane00" type="Marker2D" parent="." unique_id=2004919281]
+position = Vector2(0, -12)
+
+[node name="Spawn_Lane01" type="Marker2D" parent="." unique_id=477430502]
+position = Vector2(0, 63)
+
+[node name="Spawn_Lane02" type="Marker2D" parent="." unique_id=618762839]
+position = Vector2(0, 138)
+
+[node name="Spawn_Lane03" type="Marker2D" parent="." unique_id=1826833847]
+position = Vector2(0, 212)
+
+[node name="SpawnTimer" type="Timer" parent="." unique_id=469967382]
+unique_name_in_owner = true
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

@@ -7,6 +7,7 @@ class_name GameScene extends Node
 @onready var speed_line_color_rect: ColorRect = %SpeedLineColorRect
 @onready var traffic_light: TrafficLight = %TrafficLight
 @onready var hud: GameHUD = %Hud
+@onready var road_object_spawner: RoadObjectSpawner = %RoadObjectSpawner
 
 var current_lane: int = 0
 var _num_lanes: int = 4
@@ -25,9 +26,7 @@ var _pull_back_speed: float = 200.0
 var _launch_speed_stage_multipler := [0.8, 1.0, 1.2, 0.8]
 
 func _ready() -> void:
-	#_pre_pull_back_speed = 50.0
-	#Global.car_speed = 50.0
-	_place_player_on_lane(1)
+	_place_player_on_lane(0)
 	_start_pull_back_cutscene()
 	
 	#pass
@@ -86,6 +85,7 @@ func _launch_car(launch_force: float) -> void:
 	
 	traffic_light.disable_traffic_light()
 	hud.visible = true
+	road_object_spawner.resume_spawning_objects()
 	
 	release_tween = create_tween()
 	release_tween.tween_method(_set_speed_line_mask_size, ending_mask_size, starting_mask_size, 7.5)
@@ -137,6 +137,7 @@ func _place_player_on_lane(lane_num: int) -> void:
 	player.global_position.y = lane_markers_center[lane_num].global_position.y
 
 func _start_pull_back_cutscene() -> void:
+	road_object_spawner.pause_spawning_objects()
 	hud.visible = false
 	_in_pullback_cutscene = true
 	_pre_pull_back_speed = Global.car_speed

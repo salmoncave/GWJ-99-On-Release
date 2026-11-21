@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://b26haytti4bkg" path="res://game_scene/traffic_light/traffic_ligh11t.png" id="1_tg26a"]
 [ext_resource type="Script" uid="uid://kd8ail6n3kq3" path="res://game_scene/traffic_light/traffic_light.gd" id="2_eg5y2"]
 [ext_resource type="Texture2D" uid="uid://ca6mvae4iv36d" path="res://game_scene/traffic_light/traffic_lights.png" id="2_tg26a"]
+[ext_resource type="Theme" uid="uid://dnvql51ifguuf" path="res://game_scene/hud/hud_theme.tres" id="4_w7pwd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eg5y2"]
 atlas = ExtResource("2_tg26a")
@@ -40,3 +41,13 @@ script = ExtResource("2_eg5y2")
 [node name="Lights" type="AnimatedSprite2D" parent="." unique_id=1093387668]
 unique_name_in_owner = true
 sprite_frames = SubResource("SpriteFrames_i2p60")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1135766213]
+unique_name_in_owner = true
+offset_left = 20.0
+offset_top = -11.0
+offset_right = 94.0
+offset_bottom = 29.0
+theme = ExtResource("4_w7pwd")
+text = "3"
+autowrap_mode = 0

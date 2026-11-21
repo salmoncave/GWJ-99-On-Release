@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://vfy6sargg52i" path="res://game_scene/car/player_car.tscn" id="9_ux5qa"]
 [ext_resource type="Script" uid="uid://c4pruj6sers0r" path="res://game_scene/game_scene_camera_2d.gd" id="11_fx1fl"]
 [ext_resource type="Shader" uid="uid://nc76lmujixnv" path="res://game_scene/shader_speed_lines.gdshader" id="12_adbct"]
+[ext_resource type="PackedScene" uid="uid://dclcyy4vsmx6c" path="res://game_scene/road_objects/road_object_spawner.tscn" id="12_wohtb"]
 [ext_resource type="PackedScene" uid="uid://ccms4btdodlay" path="res://game_scene/traffic_light/traffic_light.tscn" id="13_cvb1i"]
 [ext_resource type="PackedScene" uid="uid://bl2j8c4i3xjsc" path="res://game_scene/hud/hud.tscn" id="14_f63yk"]
 
@@ -165,7 +166,9 @@ shape = SubResource("RectangleShape2D_i2p60")
 z_index = 5
 position = Vector2(-281, 136)
 
-[node name="ObstacleSpawner" type="Node2D" parent="." unique_id=1670541412]
+[node name="RoadObjectSpawner" parent="." unique_id=867003250 instance=ExtResource("12_wohtb")]
+unique_name_in_owner = true
+position = Vector2(626, 0)
 
 [node name="GameSceneCamera2D" type="Camera2D" parent="." unique_id=2095920654 node_paths=PackedStringArray("player_car")]
 unique_name_in_owner = true
