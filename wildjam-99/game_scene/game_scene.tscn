@@ -9,15 +9,27 @@
 [ext_resource type="Texture2D" uid="uid://dlythqqem6koo" path="res://game_scene/parallax/test_00/2.png" id="3_t1rx8"]
 [ext_resource type="Texture2D" uid="uid://c1wcwgefltmtd" path="res://game_scene/parallax/test_00/3.png" id="4_8iemx"]
 [ext_resource type="Texture2D" uid="uid://crr0odcv5k3a3" path="res://game_scene/parallax/test_00/4.png" id="5_64w2a"]
+[ext_resource type="AudioStream" uid="uid://dlkvsak0lqdi4" path="res://audio/Highway Ambience Loop.wav" id="5_mwglh"]
+[ext_resource type="AudioStream" uid="uid://cvoq33nayil5w" path="res://audio/Ignition A.wav" id="6_c5yqa"]
 [ext_resource type="Texture2D" uid="uid://2yliwq3a4aty" path="res://game_scene/parallax/road_lines.png" id="6_fpun6"]
+[ext_resource type="AudioStream" uid="uid://5v2h6vybqxma" path="res://audio/Racecar Rev Long E.wav" id="7_evrs6"]
 [ext_resource type="Texture2D" uid="uid://xt51wr2rq2jy" path="res://game_scene/parallax/test_00/5.png" id="7_wc255"]
 [ext_resource type="Texture2D" uid="uid://lqt3nanmt8ub" path="res://game_scene/parallax/road_background.png" id="8_arp2o"]
+[ext_resource type="AudioStream" uid="uid://cn0ivnli87bgy" path="res://audio/Racecar Pull Away Small A.wav" id="8_evrs6"]
+[ext_resource type="AudioStream" uid="uid://drjy6k64csdif" path="res://audio/Beefy Hit Object A.wav" id="8_shqy7"]
+[ext_resource type="AudioStream" uid="uid://dxw5ocpvjy8du" path="res://audio/FX Boost 004.wav" id="9_dvby8"]
+[ext_resource type="AudioStream" uid="uid://b3lgj70irde6j" path="res://audio/Pot Explosion.wav" id="9_lclci"]
 [ext_resource type="PackedScene" uid="uid://vfy6sargg52i" path="res://game_scene/car/player_car.tscn" id="9_ux5qa"]
 [ext_resource type="Script" uid="uid://c4pruj6sers0r" path="res://game_scene/game_scene_camera_2d.gd" id="11_fx1fl"]
 [ext_resource type="Shader" uid="uid://nc76lmujixnv" path="res://game_scene/shader_speed_lines.gdshader" id="12_adbct"]
+[ext_resource type="AudioStream" uid="uid://f2xjmfnmxf3u" path="res://audio/Signal Positive Wood Chimes B.wav" id="12_evrs6"]
+[ext_resource type="AudioStream" uid="uid://bmnh3woaqn5xw" path="res://audio/Signal Negative Bubble B.wav" id="12_qsae3"]
 [ext_resource type="PackedScene" uid="uid://dclcyy4vsmx6c" path="res://game_scene/road_objects/road_object_spawner.tscn" id="12_wohtb"]
 [ext_resource type="PackedScene" uid="uid://ccms4btdodlay" path="res://game_scene/traffic_light/traffic_light.tscn" id="13_cvb1i"]
 [ext_resource type="PackedScene" uid="uid://bl2j8c4i3xjsc" path="res://game_scene/hud/hud.tscn" id="14_f63yk"]
+[ext_resource type="AudioStream" uid="uid://7y2l5sfjywdx" path="res://audio/Gun Gear Click.wav" id="14_r0woc"]
+[ext_resource type="AudioStream" uid="uid://dwbk4qi805ehj" path="res://audio/Game Over Short.wav" id="15_pyq6k"]
+[ext_resource type="AudioStream" uid="uid://d38we2kifav6r" path="res://audio/rollover1.ogg" id="16_pyq6k"]
 [ext_resource type="Texture2D" uid="uid://c7pdtaugbbxo7" path="res://game_scene/spacebar_sheet.png" id="20_f7wrr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mwglh"]
@@ -130,6 +142,18 @@ explosion_particles = ExtResource("2_xes44")
 explosion_particles_small = ExtResource("3_36p0e")
 lane_markers_center = [NodePath("LaneMarkers/Center_Lane00"), NodePath("LaneMarkers/Center_Lane01"), NodePath("LaneMarkers/Center_Lane02"), NodePath("LaneMarkers/Center_Lane03")]
 gear_texture = ExtResource("3_2d281")
+ambience_sfx = ExtResource("5_mwglh")
+pullback_sfx = ExtResource("6_c5yqa")
+pullback_sfx_01 = ExtResource("7_evrs6")
+launch_sfx = ExtResource("8_evrs6")
+hit_sfx = ExtResource("8_shqy7")
+booster_sfx = ExtResource("9_dvby8")
+explosion_sfx = ExtResource("9_lclci")
+gear_collect_sfx = ExtResource("12_evrs6")
+too_many_gears_sfx = ExtResource("12_qsae3")
+gear_enter_car_sfx = ExtResource("14_r0woc")
+game_over_sfx = ExtResource("15_pyq6k")
+pause_menu_sfx = ExtResource("16_pyq6k")
 metadata/_edit_horizontal_guides_ = [212.0]
 
 [node name="TrafficLight" parent="." unique_id=1093387668 instance=ExtResource("13_cvb1i")]

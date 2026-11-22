@@ -7,6 +7,11 @@ signal unpause
 @export var gear_markers: Array[Marker2D]
 @export var gear_texture: Texture2D
 
+@export var button_hover_sfx: AudioStream
+@export var button_click_sfx: AudioStream
+
+@export var buttons: Array[Button]
+
 var max_speed_speedometer := 2000.0
 var previous_speed := 0.0
 
@@ -21,11 +26,29 @@ var previous_speed := 0.0
 @onready var score_label: RichTextLabel = %ScoreLabel
 @onready var hud_root: MarginContainer = %HudRoot
 
+@onready var road_lines_check_box: Button = %RoadLinesCheckBox
+@onready var speed_lines_check_box: Button = %SpeedLinesCheckBox
+@onready var music_button: Button = %MusicButton
+@onready var sfx_button: Button = %SFXButton
 
 func _ready() -> void:
+	road_lines_check_box.button_pressed = Global.road_lines
+	speed_lines_check_box.button_pressed = Global.speed_lines
+	
+	music_button.button_pressed = AudioManager.is_music_muted
+	sfx_button.button_pressed = AudioManager.is_sfx_muted
+	
 	SignalBus.car_speed_updated.connect(
 		_on_signal_bus_car_speed_updated
 	)
+	
+	for button in buttons:
+		button.mouse_entered.connect(
+			func(): AudioManager.spawn_sound_emitter(button_hover_sfx)
+		)
+		button.pressed.connect(
+			func(): AudioManager.spawn_sound_emitter(button_click_sfx)
+		)
 
 func show_game_over_panel() -> void:
 	speed_label.text = str(int(Global.top_speed * aesthetic_speed_multiplier))
@@ -74,3 +97,11 @@ func _on_resume_button_pressed() -> void:
 
 func _on_speed_lines_check_box_toggled(toggled_on: bool) -> void:
 	SignalBus.speed_lines_toggled.emit(toggled_on)
+
+
+func _on_music_button_toggled(toggled_on: bool) -> void:
+	AudioManager.is_music_muted = toggled_on
+
+func _on_sfx_button_toggled(toggled_on: bool) -> void:
+	AudioManager.is_sfx_muted = toggled_on
+	AudioManager.is_ambience_muted = toggled_on

@@ -4,11 +4,23 @@ class_name MainMenuScene extends Node
 
 @export var buttons: Array[Button]
 
+@export var button_sound_pressed: AudioStream
+@export var button_sound_hovered: AudioStream
+@export var menu_music: AudioStream
+@export var level_music: AudioStream
+
 func _ready() -> void:
+	AudioManager.set_new_music_track(menu_music)
 	_toggle_button_disable(true)
 	animation_player_2.play_backwards("start_game")
 	await animation_player_2.animation_finished
 	_toggle_button_disable(false)
+	
+	for button in buttons:
+		button.mouse_entered.connect(func():
+			AudioManager.spawn_sound_emitter(button_sound_hovered))
+		button.pressed.connect(func():
+			AudioManager.spawn_sound_emitter(button_sound_pressed))
 
 func _toggle_button_disable(is_disabled: bool) -> void:
 	for button in buttons:
@@ -18,6 +30,8 @@ func start_game(difficulty: int) -> void:
 	_toggle_button_disable(true)
 	Global.reset_global()
 	animation_player_2.play("start_game")
+	
+	AudioManager.set_new_music_track(level_music, 5.0)
 	
 	await animation_player_2.animation_finished
 	
@@ -37,6 +51,7 @@ func start_game(difficulty: int) -> void:
 			Global.starting_spawn_interval = 1.5
 			Global.spawn_interval_increase_time = 15.0
 			Global.starting_gears = 0
+	
 	
 	SignalBus.level_started.emit()
 

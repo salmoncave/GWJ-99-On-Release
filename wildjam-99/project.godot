@@ -15,15 +15,19 @@ run/main_scene="uid://buj4o7tdhgj4t"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="uid://d3r46q4c2f1et"
+
 [autoload]
 
 Global="*uid://qpu6f7kt30av"
 SignalBus="*uid://dqapp7kvlrlhg"
+AudioManager="*uid://oh73u0djv8bu"
 
 [display]
 
 window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
 
 [input]
 

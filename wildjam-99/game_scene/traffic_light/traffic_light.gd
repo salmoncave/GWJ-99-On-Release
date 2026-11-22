@@ -5,6 +5,8 @@ var light_time_seconds: float = 0.5
 var height_offset: Vector2 = - Vector2(0.0, 64.0)
 var tween: Tween
 
+@export var ding_sfx: AudioStream
+
 @onready var lights: AnimatedSprite2D = %Lights
 @onready var rich_text_label: RichTextLabel = %RichTextLabel
 
@@ -35,12 +37,21 @@ func _animate_traffic_light() -> void:
 		0:
 			text = 'READY'
 			color = Color.RED
+			AudioManager.spawn_sound_emitter(
+				ding_sfx, global_position, 0.0, 0.8, 0.8
+			)
 		1:
 			text = 'SET'
 			color = Color.YELLOW
+			AudioManager.spawn_sound_emitter(
+				ding_sfx, global_position, 0.0, 0.8, 0.8
+			)
 		2:
 			text = 'GO!'
 			color = Color.GREEN
+			AudioManager.spawn_sound_emitter(
+				ding_sfx, global_position, 0.0, 1.4, 1.4
+			)
 	
 	rich_text_label.text = text
 	rich_text_label.self_modulate = color

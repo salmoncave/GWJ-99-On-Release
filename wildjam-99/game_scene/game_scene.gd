@@ -8,6 +8,20 @@ const DEFAULT_LANE_SHIFT_SPEED := 300.0
 @export var lane_markers_center: Array[Marker2D] = []
 @export var gear_texture: Texture2D
 
+@export_group("SFX")
+@export var ambience_sfx: AudioStream
+@export var pullback_sfx: AudioStream
+@export var pullback_sfx_01: AudioStream
+@export var launch_sfx: AudioStream
+@export var hit_sfx: AudioStream
+@export var booster_sfx: AudioStream
+@export var explosion_sfx: AudioStream
+@export var gear_collect_sfx: AudioStream
+@export var too_many_gears_sfx: AudioStream
+@export var gear_enter_car_sfx: AudioStream
+@export var game_over_sfx: AudioStream
+@export var pause_menu_sfx: AudioStream
+
 @onready var game_scene_camera_2d: GameSceneCamera2D = %GameSceneCamera2D
 @onready var speed_line_color_rect: ColorRect = %SpeedLineColorRect
 @onready var traffic_light: TrafficLight = %TrafficLight
@@ -42,6 +56,8 @@ var gears: int = 0:
 		gears = clampi(value, 0, 3)
 
 func _ready() -> void:
+	AudioManager.set_new_ambient_track(ambience_sfx)
+	
 	gears = Global.starting_gears
 	
 	_toggle_road_lines(Global.road_lines)
@@ -119,7 +135,14 @@ func _tween_gear_spent() -> void:
 
 func _player_collected_gear(collect_position: Vector2) -> void:
 	if gears > 2:
+		AudioManager.spawn_sound_emitter(
+			too_many_gears_sfx, player.global_position
+		)
 		return
+	
+	AudioManager.spawn_sound_emitter(
+		gear_collect_sfx, player.global_position, -5.0, 0.75, 0.85
+	)
 	
 	var tween_destination: Vector2
 	
@@ -128,15 +151,15 @@ func _player_collected_gear(collect_position: Vector2) -> void:
 	
 	tween_destination = _get_current_global_gear_position_from_hud()
 	var gear_tween := create_tween()
-	var tween_duration := 0.5
-	var collect_offset := Vector2(0.0, -64.0)
+	var tween_duration := 0.75
+	#var collect_offset := Vector2(0.0, -64.0)
 	
 	gears += 1
 	
 	gear_sprite.visible = true
 	
-	gear_tween.tween_property(gear_sprite, "global_position", collect_position + collect_offset, tween_duration * 0.5)
-	gear_tween.tween_property(gear_sprite, "global_position", tween_destination, tween_duration).set_delay(0.5)
+	#gear_tween.tween_property(gear_sprite, "global_position", collect_position + collect_offset, tween_duration * 0.5)
+	gear_tween.tween_property(gear_sprite, "global_position", tween_destination, tween_duration)
 	
 	await gear_tween.finished
 	
@@ -179,6 +202,10 @@ func _physics_process(delta: float) -> void:
 
 func _on_player_collided_with_road_object(road_object: RoadObject) -> void:
 	if road_object.hazardous:
+		AudioManager.spawn_sound_emitter(
+			hit_sfx, player.global_position,
+		)
+		
 		if gears <= 0:
 			_player_lost(road_object)
 			return
@@ -192,8 +219,16 @@ func _on_player_collided_with_road_object(road_object: RoadObject) -> void:
 		_player_collected_gear(road_object.global_position)
 	elif road_object is RoadObjectSlowdown:
 		_player_collided_with_slowdown_object(road_object)
+	elif road_object is RoadObjectBoost:
+		AudioManager.spawn_sound_emitter(
+			booster_sfx, player.global_position
+		) 
 
-func _spawn_explosion_vfx(_custom_spawn_position: Vector2 = Vector2.ZERO) -> void:
+func _spawn_explosion_vfx(_custom_spawn_position: Vector2 = Vector2.ZERO, _spawn_sfx: bool = true) -> void:
+	if _spawn_sfx:
+		AudioManager.spawn_sound_emitter(
+			explosion_sfx, player.global_position, -5.0, 0.8, 1.2
+		)
 	var _explosion_particles := explosion_particles.instantiate() as GPUParticles2D
 	if _custom_spawn_position != Vector2.ZERO:
 		_explosion_particles.global_position = _custom_spawn_position
@@ -203,7 +238,7 @@ func _spawn_explosion_vfx(_custom_spawn_position: Vector2 = Vector2.ZERO) -> voi
 	_explosion_particles.emitting = true
 
 func _player_collided_with_slowdown_object(slowdown_object: RoadObject) -> void:
-	_spawn_explosion_vfx(slowdown_object.global_position)
+	_spawn_explosion_vfx(slowdown_object.global_position, false)
 	slowdown_object.queue_free()
 	
 	var slowdown_multiplier := 0.8
@@ -222,6 +257,10 @@ func _player_collided_with_car(collided_car: RoadObjectCar) -> void:
 	collided_car.visible = false
 	collided_car.queue_free()
 	
+	AudioManager.spawn_sound_emitter(
+		gear_enter_car_sfx, player.global_position, -3.0, 0.9, 1.0
+	)
+	
 	_start_pull_back_cutscene(true)
 
 func _player_lost(road_object: RoadObject) -> void:
@@ -229,19 +268,29 @@ func _player_lost(road_object: RoadObject) -> void:
 	_has_lost = true
 	await game_scene_camera_2d.perform_camera_zoom(true).finished
 	
+	AudioManager.spawn_sound_emitter(
+		game_over_sfx
+	)
+	
 	_spawn_explosion_vfx()
 	road_object.visible = false
 	player.visible = false
 	hud.show_game_over_panel()
 	await get_tree().create_timer(0.25).timeout
-	_spawn_explosion_vfx(player.global_position + Vector2(64.0, -64.0))
+	_spawn_explosion_vfx(player.global_position + Vector2(64.0, -64.0), false)
 	await get_tree().create_timer(0.25).timeout
-	_spawn_explosion_vfx(player.global_position + Vector2(-64.0, -64.0))
+	_spawn_explosion_vfx(player.global_position + Vector2(-64.0, -64.0), false)
 
 func _on_signal_bus_car_speed_updated(new_speed: float) -> void:
 	_lane_shift_speed = clampf(DEFAULT_LANE_SHIFT_SPEED + (new_speed / 10.0), DEFAULT_LANE_SHIFT_SPEED, 550.0)
 
 func _start_pull_back() -> void:
+	AudioManager.spawn_sound_emitter(
+		pullback_sfx, player.global_position, -5.0, 1.1, 1.2
+	)
+	AudioManager.spawn_sound_emitter(
+		pullback_sfx_01, player.global_position, -5.0, 1.2, 1.3
+	)
 	#_pre_pull_player_x = player.global_position.x
 	traffic_light.place_light_above_player(player)
 	traffic_light.enable_traffic_light()
@@ -264,6 +313,10 @@ func _process_pull_back(delta: float) -> void:
 
 
 func _launch_car(launch_force: float) -> void:
+	AudioManager.spawn_sound_emitter(
+		launch_sfx, player.global_position, -10.0, 1.25, 1.35
+	)
+	
 	spacebar_animated_sprite_2d.visible = false
 	
 	var tween_duration := 50.0 / launch_force

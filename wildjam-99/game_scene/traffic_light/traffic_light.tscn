@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://b26haytti4bkg" path="res://game_scene/traffic_light/traffic_ligh11t.png" id="1_tg26a"]
 [ext_resource type="Script" uid="uid://kd8ail6n3kq3" path="res://game_scene/traffic_light/traffic_light.gd" id="2_eg5y2"]
 [ext_resource type="Texture2D" uid="uid://ca6mvae4iv36d" path="res://game_scene/traffic_light/traffic_lights.png" id="2_tg26a"]
+[ext_resource type="AudioStream" uid="uid://nk3xf837tta4" path="res://audio/Scoreboard Ding.wav" id="3_edjwh"]
 [ext_resource type="Theme" uid="uid://dnvql51ifguuf" path="res://game_scene/hud/hud_theme.tres" id="4_w7pwd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eg5y2"]
@@ -37,6 +38,7 @@ animations = [{
 [node name="TrafficLight" type="Sprite2D" unique_id=32034168]
 texture = ExtResource("1_tg26a")
 script = ExtResource("2_eg5y2")
+ding_sfx = ExtResource("3_edjwh")
 
 [node name="Lights" type="AnimatedSprite2D" parent="." unique_id=1093387668]
 unique_name_in_owner = true
