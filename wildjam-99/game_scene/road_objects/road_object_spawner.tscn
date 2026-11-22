@@ -33,8 +33,7 @@ unique_name_in_owner = true
 
 [node name="IntervalIncreaseTimer" type="Timer" parent="." unique_id=1245526506]
 unique_name_in_owner = true
-wait_time = 10.0
-autostart = true
+wait_time = 30.0
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="IntervalIncreaseTimer" to="." method="_on_interval_increase_timer_timeout"]

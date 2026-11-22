@@ -53,7 +53,7 @@ func _tween_speed_label_scale(is_increase: bool) -> void:
 
 
 func _on_retry_button_pressed() -> void:
-	SignalBus.level_restarted.emit()
+	SignalBus.level_started.emit()
 
 
 func _on_quit_button_pressed() -> void:

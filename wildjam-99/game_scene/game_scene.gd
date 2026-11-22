@@ -14,6 +14,7 @@ const DEFAULT_LANE_SHIFT_SPEED := 300.0
 @onready var hud: GameHUD = %Hud
 @onready var road_object_spawner: RoadObjectSpawner = %RoadObjectSpawner
 @onready var spacebar_animated_sprite_2d: AnimatedSprite2D = %SpacebarAnimatedSprite2D
+@onready var fade_color_rect: ColorRect = %FadeColorRect
 
 var current_lane: int = 0
 var _num_lanes: int = 4
@@ -40,12 +41,18 @@ var gears: int = 0:
 		gears = clampi(value, 0, 3)
 
 func _ready() -> void:
+	gears = Global.starting_gears
+	
 	_toggle_road_lines(Global.road_lines)
 	SignalBus.road_lines_toggled.connect(
 		_toggle_road_lines
 	)
 	
 	_place_player_on_lane(0)
+	
+	var tween := create_tween()
+	tween.tween_property(fade_color_rect, "modulate:a", 0.0, 0.75)
+	
 	_start_pull_back_cutscene()
 	
 	_lane_shift_speed = DEFAULT_LANE_SHIFT_SPEED

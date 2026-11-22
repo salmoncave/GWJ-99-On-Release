@@ -18,6 +18,7 @@ var second_to_last_spawned_point: Marker2D = null
 var last_spawned_road_object: PackedScene = null
 
 @export var _spawn_interval_seconds: float = 1.5
+var _spawn_interval_increase_seconds: float = 30.0
 
 @onready var spawn_timer: Timer = %SpawnTimer
 @onready var despawn_marker_2d: Marker2D = %DespawnMarker2D
@@ -33,8 +34,11 @@ func resume_spawning_objects() -> void:
 	interval_increase_timer.paused = false
 
 func _ready() -> void:
-	spawn_timer.wait_time = _spawn_interval_seconds
-	spawn_timer.start()
+	_spawn_interval_seconds = Global.starting_spawn_interval
+	_spawn_interval_increase_seconds = Global.spawn_interval_increase_time
+	
+	spawn_timer.start(_spawn_interval_seconds)
+	interval_increase_timer.start(_spawn_interval_increase_seconds)
 
 func spawn_new_road_object() -> void:
 	var spawn_lane := _get_next_spawning_lane()

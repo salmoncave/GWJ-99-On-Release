@@ -28,6 +28,10 @@ var score: int = 0
 var top_speed: float = 0
 var launches: int = 0
 
+var starting_spawn_interval: float = 2.5
+var spawn_interval_increase_time: float = 30.0
+var starting_gears: int = 3
+
 var road_lines: bool = true: 
 	set(value):
 		road_lines = value

@@ -293,5 +293,18 @@ grow_vertical = 2
 
 [node name="Hud" parent="CanvasLayer" unique_id=245830356 instance=ExtResource("14_f63yk")]
 unique_name_in_owner = true
+aesthetic_speed_multiplier = 0.1
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=658823006]
+
+[node name="FadeColorRect" type="ColorRect" parent="CanvasLayer2" unique_id=758362840]
+unique_name_in_owner = true
+z_index = 50
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
 
 [editable path="RoadObjectSpawner"]
