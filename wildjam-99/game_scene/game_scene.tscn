@@ -4,6 +4,8 @@
 [ext_resource type="Script" uid="uid://chsuam2t0c4ao" path="res://game_scene/game_scene.gd" id="1_mmqx0"]
 [ext_resource type="Texture2D" uid="uid://dksacj7mingd5" path="res://game_scene/parallax/test_00/1.png" id="2_olg7q"]
 [ext_resource type="PackedScene" uid="uid://gvlpa2ryai0" path="res://game_scene/explosion_particles.tscn" id="2_xes44"]
+[ext_resource type="Texture2D" uid="uid://b5rl1nox3x8e6" path="res://game_scene/road_objects/road_object_gear/gear.png" id="3_2d281"]
+[ext_resource type="PackedScene" uid="uid://b74aoplo5bqoe" path="res://game_scene/explosion_particles_small.tscn" id="3_36p0e"]
 [ext_resource type="Texture2D" uid="uid://dlythqqem6koo" path="res://game_scene/parallax/test_00/2.png" id="3_t1rx8"]
 [ext_resource type="Texture2D" uid="uid://c1wcwgefltmtd" path="res://game_scene/parallax/test_00/3.png" id="4_8iemx"]
 [ext_resource type="Texture2D" uid="uid://crr0odcv5k3a3" path="res://game_scene/parallax/test_00/4.png" id="5_64w2a"]
@@ -16,6 +18,71 @@
 [ext_resource type="PackedScene" uid="uid://dclcyy4vsmx6c" path="res://game_scene/road_objects/road_object_spawner.tscn" id="12_wohtb"]
 [ext_resource type="PackedScene" uid="uid://ccms4btdodlay" path="res://game_scene/traffic_light/traffic_light.tscn" id="13_cvb1i"]
 [ext_resource type="PackedScene" uid="uid://bl2j8c4i3xjsc" path="res://game_scene/hud/hud.tscn" id="14_f63yk"]
+[ext_resource type="Texture2D" uid="uid://c7pdtaugbbxo7" path="res://game_scene/spacebar_sheet.png" id="20_f7wrr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mwglh"]
+atlas = ExtResource("20_f7wrr")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c5yqa"]
+atlas = ExtResource("20_f7wrr")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x6wej"]
+atlas = ExtResource("20_f7wrr")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shqy7"]
+atlas = ExtResource("20_f7wrr")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lclci"]
+atlas = ExtResource("20_f7wrr")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dvby8"]
+atlas = ExtResource("20_f7wrr")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qsae3"]
+atlas = ExtResource("20_f7wrr")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_evrs6"]
+atlas = ExtResource("20_f7wrr")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i2p60"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mwglh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c5yqa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x6wej")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shqy7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lclci")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dvby8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qsae3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_evrs6")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 12.0
+}]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_cminf"]
 noise_type = 2
@@ -60,13 +127,24 @@ shader_parameter/animation_speed = 20.0
 script = ExtResource("1_mmqx0")
 player = NodePath("PlayerCar")
 explosion_particles = ExtResource("2_xes44")
+explosion_particles_small = ExtResource("3_36p0e")
 lane_markers_center = [NodePath("LaneMarkers/Center_Lane00"), NodePath("LaneMarkers/Center_Lane01"), NodePath("LaneMarkers/Center_Lane02"), NodePath("LaneMarkers/Center_Lane03")]
+gear_texture = ExtResource("3_2d281")
 metadata/_edit_horizontal_guides_ = [212.0]
 
 [node name="TrafficLight" parent="." unique_id=1093387668 instance=ExtResource("13_cvb1i")]
 unique_name_in_owner = true
 visible = false
 z_index = 10
+
+[node name="SpacebarAnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=571656843]
+unique_name_in_owner = true
+visible = false
+z_index = 20
+z_as_relative = false
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_i2p60")
+frame_progress = 0.97053844
 
 [node name="ParallaxLayers" type="Node2D" parent="." unique_id=1398437692 node_paths=PackedStringArray("layers_auto_scroll_multiplier")]
 position = Vector2(0, -162)
@@ -168,9 +246,10 @@ shape = SubResource("RectangleShape2D_i2p60")
 z_index = 5
 position = Vector2(-281, 136)
 
-[node name="RoadObjectSpawner" parent="." unique_id=867003250 instance=ExtResource("12_wohtb")]
+[node name="RoadObjectSpawner" parent="." unique_id=867003250 node_paths=PackedStringArray("game_scene") instance=ExtResource("12_wohtb")]
 unique_name_in_owner = true
 position = Vector2(626, 0)
+game_scene = NodePath("..")
 _spawn_interval_seconds = 1.0
 
 [node name="DespawnMarker2D" parent="RoadObjectSpawner" index="5" unique_id=178580155]

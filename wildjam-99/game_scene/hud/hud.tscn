@@ -6,12 +6,74 @@
 [ext_resource type="Texture2D" uid="uid://b47qocukbwut3" path="res://game_scene/hud/speedometer_fill.png" id="4_owpxy"]
 [ext_resource type="Texture2D" uid="uid://dklm16071c4d1" path="res://game_scene/road_objects/road_object_gear/gear_background_sheet.png" id="5_u4i0h"]
 [ext_resource type="Texture2D" uid="uid://dv8djsyfy1680" path="res://game_scene/road_objects/road_object_gear/gears_sheet.png" id="6_xinnp"]
+[ext_resource type="Texture2D" uid="uid://b5rl1nox3x8e6" path="res://game_scene/road_objects/road_object_gear/gear.png" id="7_g4xy1"]
 
 [sub_resource type="Gradient" id="Gradient_2nlin"]
 offsets = PackedFloat32Array(0, 0.25, 0.5, 0.75, 1)
 colors = PackedColorArray(1, 0, 0, 1, 1, 0.5254902, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1)
 
-[node name="Hud" type="Control" unique_id=245830356]
+[sub_resource type="Animation" id="Animation_g4xy1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GameOverPanelContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(288, 158)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GameOverPanelContainer:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_vrw63"]
+resource_name = "game_over"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GameOverPanelContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(288, 696), Vector2(288, 158)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GameOverPanelContainer:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.03333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_omgbu"]
+_data = {
+&"RESET": SubResource("Animation_g4xy1"),
+&"game_over": SubResource("Animation_vrw63")
+}
+
+[node name="Hud" type="Control" unique_id=245830356 node_paths=PackedStringArray("gear_markers")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,6 +83,9 @@ grow_vertical = 2
 theme = ExtResource("1_7imr4")
 script = ExtResource("1_2nlin")
 color_gradient = SubResource("Gradient_2nlin")
+aesthetic_speed_multiplier = null
+gear_markers = [NodePath("MarginContainer/GearTextureProgressBar/GearMarker00"), NodePath("MarginContainer/GearTextureProgressBar/GearMarker01"), NodePath("MarginContainer/GearTextureProgressBar/GearMarker02")]
+gear_texture = ExtResource("7_g4xy1")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=860833378]
 layout_mode = 1
@@ -78,3 +143,128 @@ layout_mode = 2
 max_value = 3.0
 texture_under = ExtResource("5_u4i0h")
 texture_progress = ExtResource("6_xinnp")
+
+[node name="GearMarker00" type="Marker2D" parent="MarginContainer/GearTextureProgressBar" unique_id=1680936988]
+position = Vector2(32, 32)
+
+[node name="GearMarker01" type="Marker2D" parent="MarginContainer/GearTextureProgressBar" unique_id=1729205758]
+position = Vector2(96, 32)
+
+[node name="GearMarker02" type="Marker2D" parent="MarginContainer/GearTextureProgressBar" unique_id=1618274149]
+position = Vector2(160, 32)
+
+[node name="GameOverPanelContainer" type="PanelContainer" parent="." unique_id=844381026]
+visible = false
+custom_minimum_size = Vector2(576, 324)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -288.0
+offset_top = -166.0
+offset_right = 288.0
+offset_bottom = 166.00159
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="GameOverPanelContainer" unique_id=1973629863]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverPanelContainer/MarginContainer" unique_id=1335499350]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="GameOverPanelContainer/MarginContainer/VBoxContainer" unique_id=1434094179]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "Game Over!"
+fit_content = true
+autowrap_mode = 0
+
+[node name="HSeparator" type="HSeparator" parent="GameOverPanelContainer/MarginContainer/VBoxContainer" unique_id=1503090439]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameOverPanelContainer/MarginContainer/VBoxContainer" unique_id=2020968080]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverPanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=2045773944]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="GameOverPanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1378071283]
+layout_mode = 2
+text = "Top Speed:"
+fit_content = true
+autowrap_mode = 0
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="GameOverPanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=91487203]
+layout_mode = 2
+text = "Launches:"
+fit_content = true
+autowrap_mode = 0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="GameOverPanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=2079109336]
+layout_mode = 2
+text = "Score:"
+fit_content = true
+autowrap_mode = 0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="GameOverPanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1014522363]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SpeedLabel" type="RichTextLabel" parent="GameOverPanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=187238935]
+unique_name_in_owner = true
+layout_mode = 2
+text = "999999"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 2
+
+[node name="LaunchesLabel" type="RichTextLabel" parent="GameOverPanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=1126200587]
+unique_name_in_owner = true
+layout_mode = 2
+text = "999999"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 2
+
+[node name="ScoreLabel" type="RichTextLabel" parent="GameOverPanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=45124149]
+unique_name_in_owner = true
+layout_mode = 2
+text = "999999"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 2
+
+[node name="HSeparator2" type="HSeparator" parent="GameOverPanelContainer/MarginContainer/VBoxContainer" unique_id=419040017]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="GameOverPanelContainer/MarginContainer/VBoxContainer" unique_id=784608454]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RetryButton" type="Button" parent="GameOverPanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1388325366]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = "Retry"
+
+[node name="QuitButton" type="Button" parent="GameOverPanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=196349939]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = "Quit"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1712241661]
+libraries/ = SubResource("AnimationLibrary_omgbu")
+
+[connection signal="pressed" from="GameOverPanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/RetryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="pressed" from="GameOverPanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/QuitButton" to="." method="_on_quit_button_pressed"]

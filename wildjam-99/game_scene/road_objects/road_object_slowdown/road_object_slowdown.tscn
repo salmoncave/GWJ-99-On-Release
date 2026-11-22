@@ -9,7 +9,8 @@ radius = 18.027756
 
 [node name="RoadObjectSlowdown" unique_id=197609520 instance=ExtResource("1_bqf4f")]
 script = ExtResource("2_pdtt4")
-slowdown_multiplier = 0.8
+score_value = -500
+hazardous = true
 
 [node name="ObjectSprite2D" parent="." index="0" unique_id=994413717]
 visible = true

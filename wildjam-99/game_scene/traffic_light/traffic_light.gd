@@ -2,7 +2,7 @@ class_name TrafficLight extends Sprite2D
 
 var current_stage: int = 0
 var light_time_seconds: float = 0.5
-var height_offset: Vector2 = - Vector2(50.0, 64.0)
+var height_offset: Vector2 = - Vector2(0.0, 64.0)
 var tween: Tween
 
 @onready var lights: AnimatedSprite2D = %Lights

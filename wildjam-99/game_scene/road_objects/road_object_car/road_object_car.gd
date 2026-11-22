@@ -7,3 +7,4 @@ func initialize_road_object() -> void:
 
 func _collide_with_player(_player: PlayerCar) -> void:
 	super(_player)
+	

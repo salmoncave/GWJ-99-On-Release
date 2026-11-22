@@ -2,6 +2,8 @@ class_name GameHUD extends Control
 
 @export var color_gradient: Gradient
 @export var aesthetic_speed_multiplier: float = 0.1
+@export var gear_markers: Array[Marker2D]
+@export var gear_texture: Texture2D
 
 var max_speed_speedometer := 2000.0
 var previous_speed := 0.0
@@ -10,17 +12,22 @@ var previous_speed := 0.0
 @onready var score_text_label: RichTextLabel = %ScoreTextLabel
 @onready var speed_texture_progress_bar: TextureProgressBar = %SpeedTextureProgressBar
 @onready var gear_texture_progress_bar: TextureProgressBar = %GearTextureProgressBar
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+
+@onready var speed_label: RichTextLabel = %SpeedLabel
+@onready var launches_label: RichTextLabel = %LaunchesLabel
+@onready var score_label: RichTextLabel = %ScoreLabel
 
 func _ready() -> void:
 	SignalBus.car_speed_updated.connect(
 		_on_signal_bus_car_speed_updated
 	)
-	
-	SignalBus.num_gears_updated.connect(
-		_on_signal_bus_num_gears_updated
-	)
-	
-	gear_texture_progress_bar.value = Global.gears
+
+func show_game_over_panel() -> void:
+	speed_label.text = str(int(Global.top_speed * aesthetic_speed_multiplier))
+	launches_label.text = str(Global.launches)
+	score_label.text = str(Global.score)
+	animation_player.play("game_over")
 
 func _physics_process(_delta: float) -> void:
 	score_text_label.text = str(Global.score)
@@ -44,7 +51,10 @@ func _tween_speed_label_scale(is_increase: bool) -> void:
 	scale_tween.tween_property(speed_text_label, "offset_transform_scale", default_value, tween_duration)
 	
 
-func _on_signal_bus_num_gears_updated(new_num_gears: int) -> void:
-	gear_texture_progress_bar.value = new_num_gears
-	
-	
+
+func _on_retry_button_pressed() -> void:
+	SignalBus.level_restarted.emit()
+
+
+func _on_quit_button_pressed() -> void:
+	get_tree().quit()

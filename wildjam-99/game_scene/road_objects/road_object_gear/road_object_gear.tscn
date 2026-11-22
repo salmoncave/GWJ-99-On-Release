@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://3puhnv85q37w"]
+
+[ext_resource type="PackedScene" uid="uid://bctphovllcxxj" path="res://game_scene/road_objects/road_object.tscn" id="1_b1ps0"]
+[ext_resource type="Script" uid="uid://cplf3jftb32q7" path="res://game_scene/road_objects/road_object_gear/road_object_gear.gd" id="2_od8yn"]
+[ext_resource type="Texture2D" uid="uid://b5rl1nox3x8e6" path="res://game_scene/road_objects/road_object_gear/gear.png" id="2_qfex0"]
+
+[node name="RoadObjectGear" unique_id=197609520 instance=ExtResource("1_b1ps0")]
+script = ExtResource("2_od8yn")
+score_value = 200
+
+[node name="ObjectSprite2D" parent="." index="0" unique_id=994413717]
+visible = true
+scale = Vector2(1, 1)
+texture = ExtResource("2_qfex0")

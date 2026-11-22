@@ -44,6 +44,7 @@ sprite_frames = SubResource("SpriteFrames_i2p60")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1135766213]
 unique_name_in_owner = true
+visible = false
 offset_left = 20.0
 offset_top = -11.0
 offset_right = 94.0

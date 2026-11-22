@@ -2,10 +2,28 @@
 
 [ext_resource type="FontFile" uid="uid://b2yrxdy1h1sgb" path="res://fonts/fibberish.ttf" id="1_ifhjx"]
 
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_g4xy1"]
+color = Color(1, 1, 1, 1)
+thickness = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xdrax"]
+bg_color = Color(0.28235295, 0.53333336, 0.7176471, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c0ao5"]
 
 [resource]
 default_font = ExtResource("1_ifhjx")
+HSeparator/styles/separator = SubResource("StyleBoxLine_g4xy1")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_xdrax")
 RichTextLabel/colors/font_shadow_color = Color(0, 0, 0, 1)
 RichTextLabel/constants/shadow_offset_x = -1
 RichTextLabel/constants/shadow_offset_y = 1

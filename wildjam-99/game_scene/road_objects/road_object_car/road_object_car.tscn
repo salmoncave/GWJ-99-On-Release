@@ -19,6 +19,7 @@ size = Vector2(64, 22)
 [node name="RoadObjectCar" unique_id=197609520 instance=ExtResource("1_3ipsn")]
 script = ExtResource("2_uotbq")
 sprite_array = Array[Texture2D]([ExtResource("3_fxitt"), ExtResource("2_e4msh"), ExtResource("5_x58j5"), ExtResource("6_o47hf"), ExtResource("7_r4dll"), ExtResource("8_wsf1w"), ExtResource("9_5wg30"), ExtResource("10_6swxb"), ExtResource("11_ruqnn"), ExtResource("12_jt24j")])
+hazardous = true
 
 [node name="ObjectSprite2D" parent="." index="0" unique_id=994413717]
 visible = true

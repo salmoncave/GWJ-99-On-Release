@@ -11,11 +11,13 @@ const CAR_MAX_SPEED := 2500.0
 const AESTHETIC_SCORE_MULTIPLIER := 0.5
 
 ##Should go up as the level continues, actually drives the scale of scrolling
-var car_speed := 250.0:
+var car_speed := CAR_MIN_SPEED:
 		set(value):
 			car_speed = clampf(value, 0.0, CAR_MAX_SPEED)
 			#cosmetic_speed = car_speed_multiplier * _cosmetic_speed_multiplier
 			SignalBus.car_speed_updated.emit(car_speed)
+			if car_speed > top_speed:
+				top_speed = car_speed
 
 #var cosmetic_speed := 10.0
 
@@ -23,15 +25,16 @@ var car_speed := 250.0:
 
 var score: int = 0
 
-var gears: int = 1:
-	set(value):
-		gears = clampi(value, 0, 3)
-		SignalBus.num_gears_updated.emit(gears)
+var top_speed: float = 0
+var launches: int = 0
 
-func reset_car_speed() -> void:
-	car_speed = 0.0
+func reset_global() -> void:
+	car_speed = CAR_MIN_SPEED
+	score = 0
+	top_speed = 0.0
+	launches = 0
 
 func _physics_process(delta: float) -> void:
-	if car_speed > 0.0:
+	if not is_equal_approx(car_speed, 0.0):
 		var score_value := clampi(roundi(car_speed * AESTHETIC_SCORE_MULTIPLIER * delta), 1, 999)
 		score += score_value
