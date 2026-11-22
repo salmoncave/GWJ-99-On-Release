@@ -8,8 +8,17 @@ class_name MainMenuScene extends Node
 @export var button_sound_hovered: AudioStream
 @export var menu_music: AudioStream
 @export var level_music: AudioStream
+@export var ambience_sfx: AudioStream
+
+@onready var music_button: Button = %MusicButton
+@onready var sfx_button: Button = %SFXButton
 
 func _ready() -> void:
+	AudioManager.set_new_ambient_track(ambience_sfx)
+	
+	music_button.button_pressed = AudioManager.is_music_muted
+	sfx_button.button_pressed = AudioManager.is_sfx_muted
+	
 	AudioManager.set_new_music_track(menu_music)
 	_toggle_button_disable(true)
 	animation_player_2.play_backwards("start_game")
@@ -66,3 +75,12 @@ func _on_start_button_3_pressed() -> void:
 
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
+
+
+func _on_sfx_button_toggled(toggled_on: bool) -> void:
+	AudioManager.is_sfx_muted = toggled_on
+	AudioManager.is_ambience_muted = toggled_on
+
+
+func _on_music_button_toggled(toggled_on: bool) -> void:
+	AudioManager.is_music_muted = toggled_on

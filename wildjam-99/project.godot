@@ -27,6 +27,7 @@ AudioManager="*uid://oh73u0djv8bu"
 
 [display]
 
+window/size/mode=3
 window/stretch/mode="canvas_items"
 
 [input]

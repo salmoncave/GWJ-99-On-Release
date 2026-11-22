@@ -10,6 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://cspvbin4mwnl6" path="res://audio/Synthpop Funky Dunk Intensity 2.wav" id="5_k0vs0"]
 [ext_resource type="Texture2D" uid="uid://crr0odcv5k3a3" path="res://game_scene/parallax/test_00/4.png" id="5_ph7i1"]
 [ext_resource type="Texture2D" uid="uid://xt51wr2rq2jy" path="res://game_scene/parallax/test_00/5.png" id="6_bn1a5"]
+[ext_resource type="AudioStream" uid="uid://dlkvsak0lqdi4" path="res://audio/Highway Ambience Loop.wav" id="6_qut2w"]
 [ext_resource type="Theme" uid="uid://dnvql51ifguuf" path="res://game_scene/hud/hud_theme.tres" id="7_ph7i1"]
 [ext_resource type="Texture2D" uid="uid://b5rl1nox3x8e6" path="res://game_scene/road_objects/road_object_gear/gear.png" id="8_bn1a5"]
 
@@ -226,11 +227,12 @@ _data = {
 
 [node name="MainMenu" type="Node" unique_id=541300866 node_paths=PackedStringArray("buttons")]
 script = ExtResource("1_fm1c0")
-buttons = [NodePath("CanvasLayer/Control/VBoxContainer/StartButton"), NodePath("CanvasLayer/Control/VBoxContainer/StartButton2"), NodePath("CanvasLayer/Control/VBoxContainer/StartButton3"), NodePath("CanvasLayer/Control/VBoxContainer/QuitButton")]
+buttons = [NodePath("CanvasLayer/Control/VBoxContainer/StartButton"), NodePath("CanvasLayer/Control/VBoxContainer/StartButton2"), NodePath("CanvasLayer/Control/VBoxContainer/StartButton3"), NodePath("CanvasLayer/Control/VBoxContainer/QuitButton"), NodePath("CanvasLayer/Control/MarginContainer/VBoxContainer2/MusicButton"), NodePath("CanvasLayer/Control/MarginContainer/VBoxContainer2/SFXButton")]
 button_sound_pressed = ExtResource("2_pqu83")
 button_sound_hovered = ExtResource("3_k0vs0")
 menu_music = ExtResource("2_x1yhy")
 level_music = ExtResource("5_k0vs0")
+ambience_sfx = ExtResource("6_qut2w")
 
 [node name="Background" type="Node2D" parent="." unique_id=300300318]
 scale = Vector2(2, 2)
@@ -299,6 +301,7 @@ grow_vertical = 2
 theme_override_constants/separation = 32
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Control/VBoxContainer" unique_id=525785774]
+custom_minimum_size = Vector2(0, 128)
 layout_mode = 2
 theme_override_constants/shadow_outline_size = 6
 theme_override_constants/shadow_offset_x = -4
@@ -347,6 +350,59 @@ size_flags_vertical = 4
 theme_override_font_sizes/font_size = 64
 text = "Quit Game"
 
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control" unique_id=1963664228]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer" unique_id=1721993213]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="MusicButton" type="Button" parent="CanvasLayer/Control/MarginContainer/VBoxContainer2" unique_id=1327577660]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 32
+toggle_mode = true
+text = "Music"
+
+[node name="SFXButton" type="Button" parent="CanvasLayer/Control/MarginContainer/VBoxContainer2" unique_id=1442784541]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 32
+toggle_mode = true
+text = "SFX"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer" unique_id=1723852183]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Control/MarginContainer/VBoxContainer" unique_id=523105217]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 16
+text = "Made By: SalmonCave
+City Backgrounds: CraftPix
+Font: Fibberish by Caffinate
+Some Sprites: Kenney Assets
+SFX & Music: Kenney Assets / Ovani Sound"
+fit_content = true
+autowrap_mode = 0
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1829747173]
 libraries/ = SubResource("AnimationLibrary_it65c")
 autoplay = &"new_animation"
@@ -363,3 +419,5 @@ texture = ExtResource("8_bn1a5")
 [connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/StartButton2" to="." method="_on_start_button_2_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/StartButton3" to="." method="_on_start_button_3_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="toggled" from="CanvasLayer/Control/MarginContainer/VBoxContainer2/MusicButton" to="." method="_on_music_button_toggled"]
+[connection signal="toggled" from="CanvasLayer/Control/MarginContainer/VBoxContainer2/SFXButton" to="." method="_on_sfx_button_toggled"]

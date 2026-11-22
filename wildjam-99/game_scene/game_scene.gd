@@ -9,7 +9,6 @@ const DEFAULT_LANE_SHIFT_SPEED := 300.0
 @export var gear_texture: Texture2D
 
 @export_group("SFX")
-@export var ambience_sfx: AudioStream
 @export var pullback_sfx: AudioStream
 @export var pullback_sfx_01: AudioStream
 @export var launch_sfx: AudioStream
@@ -56,8 +55,6 @@ var gears: int = 0:
 		gears = clampi(value, 0, 3)
 
 func _ready() -> void:
-	AudioManager.set_new_ambient_track(ambience_sfx)
-	
 	gears = Global.starting_gears
 	
 	_toggle_road_lines(Global.road_lines)
