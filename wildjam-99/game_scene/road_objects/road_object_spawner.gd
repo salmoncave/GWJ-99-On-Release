@@ -100,4 +100,4 @@ func _on_spawn_timer_timeout() -> void:
 
 func _on_interval_increase_timer_timeout() -> void:
 	_spawn_interval_seconds = clampf(_spawn_interval_seconds - 0.25, 0.5, 5.0)
-	print(_spawn_interval_seconds)
+	#print(_spawn_interval_seconds)

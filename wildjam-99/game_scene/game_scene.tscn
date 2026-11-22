@@ -281,10 +281,19 @@ unique_name_in_owner = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1213812583]
 
-[node name="SpeedLineColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1575158953]
+[node name="SpeedLinesVisParent" type="Control" parent="CanvasLayer" unique_id=588322907]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SpeedLineColorRect" type="ColorRect" parent="CanvasLayer/SpeedLinesVisParent" unique_id=1575158953]
 unique_name_in_owner = true
 visible = false
 material = SubResource("ShaderMaterial_fx1fl")
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -293,7 +302,6 @@ grow_vertical = 2
 
 [node name="Hud" parent="CanvasLayer" unique_id=245830356 instance=ExtResource("14_f63yk")]
 unique_name_in_owner = true
-aesthetic_speed_multiplier = 0.1
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=658823006]
 
@@ -305,6 +313,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [editable path="RoadObjectSpawner"]

@@ -1,5 +1,7 @@
 class_name GameHUD extends Control
 
+signal unpause
+
 @export var color_gradient: Gradient
 @export var aesthetic_speed_multiplier: float = 0.1
 @export var gear_markers: Array[Marker2D]
@@ -17,6 +19,8 @@ var previous_speed := 0.0
 @onready var speed_label: RichTextLabel = %SpeedLabel
 @onready var launches_label: RichTextLabel = %LaunchesLabel
 @onready var score_label: RichTextLabel = %ScoreLabel
+@onready var hud_root: MarginContainer = %HudRoot
+
 
 func _ready() -> void:
 	SignalBus.car_speed_updated.connect(
@@ -57,4 +61,16 @@ func _on_retry_button_pressed() -> void:
 
 
 func _on_quit_button_pressed() -> void:
-	get_tree().quit()
+	SignalBus.main_menu_requested.emit()
+
+
+func _on_road_lines_check_box_toggled(toggled_on: bool) -> void:
+	Global.road_lines = toggled_on
+
+
+func _on_resume_button_pressed() -> void:
+	unpause.emit()
+
+
+func _on_speed_lines_check_box_toggled(toggled_on: bool) -> void:
+	SignalBus.speed_lines_toggled.emit(toggled_on)

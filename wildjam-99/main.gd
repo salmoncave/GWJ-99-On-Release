@@ -10,6 +10,9 @@ func _ready() -> void:
 	SignalBus.level_started.connect(
 		_on_signal_bus_level_started
 	)
+	SignalBus.main_menu_requested.connect(
+		_spawn_main_menu_scene
+	)
 	
 	_spawn_main_menu_scene()
 

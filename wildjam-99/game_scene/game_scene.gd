@@ -25,8 +25,9 @@ var _in_pullback_cutscene: bool = false
 var _is_pulling_back_car: bool = false
 var _can_pull_back_car: bool = false
 var _has_lost: bool = false
+var _paused: bool = false
 
-var _pre_pull_back_speed: float = 0.0
+var _pre_paused_speed: float = 0.0
 #var _pre_pull_player_x: float = 0.0
 var _max_pull_back_deviation_x: float = 100.0
 var _pull_back_speed: float = 200.0
@@ -48,9 +49,15 @@ func _ready() -> void:
 		_toggle_road_lines
 	)
 	
+	_toggle_speed_lines(Global.speed_lines)
+	SignalBus.speed_lines_toggled.connect(
+		_toggle_speed_lines
+	)
+	
 	_place_player_on_lane(0)
 	
 	var tween := create_tween()
+	tween.finished.connect(func(): fade_color_rect.queue_free())
 	tween.tween_property(fade_color_rect, "modulate:a", 0.0, 0.75)
 	
 	_start_pull_back_cutscene()
@@ -69,9 +76,16 @@ func _ready() -> void:
 	road_object_spawner.player_collided_with_road_object.connect(
 		_on_player_collided_with_road_object
 	)
+	
+	hud.unpause.connect(
+		_toggle_pause.bind(false)
+	)
 
 func _toggle_road_lines(toggle: bool) -> void:
 	$ParallaxLayers/RoadParallax.visible = toggle
+
+func _toggle_speed_lines(toggle:bool) -> void:
+	$CanvasLayer/SpeedLinesVisParent.visible = toggle
 
 func _tween_gear_spent() -> void:
 	var gear_tween := create_tween()
@@ -130,11 +144,23 @@ func _player_collected_gear(collect_position: Vector2) -> void:
 	gear_sprite.queue_free()
 	hud.gear_texture_progress_bar.value = gears
 
+func _toggle_pause(is_paused: bool) -> void:
+	if is_paused:
+		_pause_global_car_speed()
+		hud.animation_player.play("show_pause_menu")
+		road_object_spawner.pause_spawning_objects()
+	else:
+		hud.animation_player.play_backwards("show_pause_menu")
+		await hud.animation_player.animation_finished
+		_resume_global_car_speed()
+		road_object_spawner.resume_spawning_objects()
+	
+	hud.hud_root.visible = !is_paused
+	_paused = is_paused
+
 func _physics_process(delta: float) -> void:
 	if _has_lost:
 		return
-	#if Input.is_action_just_pressed("debug_00"):
-		#_start_pull_back_cutscene()
 	
 	if _in_pullback_cutscene:
 		if Input.is_action_just_pressed("pull_back") and _can_pull_back_car and not _is_pulling_back_car:
@@ -145,6 +171,9 @@ func _physics_process(delta: float) -> void:
 			_process_pull_back(delta)
 		
 		return
+	
+	if Input.is_action_just_pressed("pause"):
+		_toggle_pause(!_paused)
 	
 	_process_player_movement(delta)
 
@@ -227,12 +256,12 @@ func _process_pull_back(delta: float) -> void:
 	if traffic_light.current_stage >= 2 and spacebar_animated_sprite_2d.frame != 0:
 		spacebar_animated_sprite_2d.frame = 0
 	if traffic_light.current_stage == 3 or Input.is_action_just_released("pull_back"):
-		_launch_car(_pre_pull_back_speed)
+		_launch_car(_pre_paused_speed)
 	elif Input.is_action_pressed("pull_back"):
 		player.car_sprite.position.x = clampf(
 			player.car_sprite.position.x - (_pull_back_speed * delta), - _max_pull_back_deviation_x, 0.0)
 
-		#_launch_car(_pre_pull_back_speed * _launch_speed_stage_multipler[_launch_speed_stage])
+
 
 func _launch_car(launch_force: float) -> void:
 	spacebar_animated_sprite_2d.visible = false
@@ -352,8 +381,11 @@ func _enable_spacebar_sprite() -> void:
 	spacebar_animated_sprite_2d.play('default')
 
 func _pause_global_car_speed() -> void:
-	_pre_pull_back_speed = Global.car_speed
+	_pre_paused_speed = Global.car_speed
 	Global.car_speed = 0.0
+
+func _resume_global_car_speed() -> void:
+	Global.car_speed = _pre_paused_speed
 
 func _create_gear_sprite(spawn_visible: bool) -> Sprite2D:
 	var gear_sprite := Sprite2D.new()

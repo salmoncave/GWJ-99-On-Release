@@ -28,6 +28,7 @@ var score: int = 0
 var top_speed: float = 0
 var launches: int = 0
 
+var car_starting_speed: float = CAR_MIN_SPEED
 var starting_spawn_interval: float = 2.5
 var spawn_interval_increase_time: float = 30.0
 var starting_gears: int = 3
@@ -37,8 +38,13 @@ var road_lines: bool = true:
 		road_lines = value
 		SignalBus.road_lines_toggled.emit(road_lines)
 
+var speed_lines: bool = true: 
+	set(value):
+		road_lines = value
+		SignalBus.speed_lines_toggled.emit(speed_lines)
+
 func reset_global() -> void:
-	car_speed = CAR_MIN_SPEED
+	car_speed = car_starting_speed
 	score = 0
 	top_speed = 0.0
 	launches = 0
