@@ -28,6 +28,11 @@ var score: int = 0
 var top_speed: float = 0
 var launches: int = 0
 
+var road_lines: bool = true: 
+	set(value):
+		road_lines = value
+		SignalBus.road_lines_toggled.emit(road_lines)
+
 func reset_global() -> void:
 	car_speed = CAR_MIN_SPEED
 	score = 0

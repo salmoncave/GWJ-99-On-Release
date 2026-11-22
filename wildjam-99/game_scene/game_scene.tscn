@@ -151,11 +151,11 @@ position = Vector2(0, -162)
 script = ExtResource("1_8c41q")
 layers_auto_scroll_multiplier = {
 NodePath("Background"): 0.0,
-NodePath("DistantBuildings"): 0.0,
-NodePath("FarBuildings"): 0.25,
+NodePath("DistantBuildings"): 0.1,
+NodePath("FarBuildings"): 0.3,
 NodePath("NearBuildings"): 0.5,
 NodePath("RoadParallax"): 1.0,
-NodePath("ForegroundBuildings"): 1.25
+NodePath("ForegroundBuildings"): 1.5
 }
 
 [node name="Background" type="Parallax2D" parent="ParallaxLayers" unique_id=1569063094]
@@ -172,6 +172,7 @@ texture = ExtResource("2_olg7q")
 
 [node name="DistantBuildings" type="Parallax2D" parent="ParallaxLayers" unique_id=1246375353]
 repeat_size = Vector2(576, 0)
+autoscroll = Vector2(-100, 0)
 repeat_times = 6
 
 [node name="2" type="Sprite2D" parent="ParallaxLayers/DistantBuildings" unique_id=1910645773]
@@ -179,7 +180,7 @@ texture = ExtResource("3_t1rx8")
 
 [node name="FarBuildings" type="Parallax2D" parent="ParallaxLayers" unique_id=679411491]
 repeat_size = Vector2(576, 0)
-autoscroll = Vector2(-50, 0)
+autoscroll = Vector2(-100, 0)
 repeat_times = 6
 
 [node name="3" type="Sprite2D" parent="ParallaxLayers/FarBuildings" unique_id=894628955]
@@ -187,7 +188,7 @@ texture = ExtResource("4_8iemx")
 
 [node name="NearBuildings" type="Parallax2D" parent="ParallaxLayers" unique_id=622540917]
 repeat_size = Vector2(576, 0)
-autoscroll = Vector2(-75, 0)
+autoscroll = Vector2(-100, 0)
 repeat_times = 6
 
 [node name="4" type="Sprite2D" parent="ParallaxLayers/NearBuildings" unique_id=2041829707]
@@ -197,7 +198,7 @@ texture = ExtResource("5_64w2a")
 scroll_offset = Vector2(0, 262)
 repeat_size = Vector2(256, 0)
 autoscroll = Vector2(-100, 0)
-repeat_times = 70
+repeat_times = 12
 
 [node name="RoadLines" type="Sprite2D" parent="ParallaxLayers/RoadParallax" unique_id=712963311]
 z_index = 1
@@ -219,7 +220,7 @@ z_index = 2
 texture = SubResource("NoiseTexture2D_i2p60")
 
 [node name="ForegroundBuildings" type="Parallax2D" parent="ParallaxLayers" unique_id=913446348]
-scroll_offset = Vector2(0, 389)
+scroll_offset = Vector2(0, 326)
 repeat_size = Vector2(576, 0)
 autoscroll = Vector2(-100, 0)
 repeat_times = 6
@@ -250,7 +251,7 @@ position = Vector2(-281, 136)
 unique_name_in_owner = true
 position = Vector2(626, 0)
 game_scene = NodePath("..")
-_spawn_interval_seconds = 1.0
+_spawn_interval_seconds = 2.5
 
 [node name="DespawnMarker2D" parent="RoadObjectSpawner" index="5" unique_id=178580155]
 position = Vector2(-1357, 0)

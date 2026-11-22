@@ -2,6 +2,45 @@
 
 [ext_resource type="FontFile" uid="uid://b2yrxdy1h1sgb" path="res://fonts/fibberish.ttf" id="1_ifhjx"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ifhjx"]
+content_margin_top = 8.0
+bg_color = Color(0.33333334, 0.3372549, 0.5529412, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bn1a5"]
+content_margin_top = 8.0
+bg_color = Color(0.33333334, 0.3372549, 0.5529412, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.59607846, 0.72156864, 0.5529412, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_se3xb"]
+content_margin_top = 8.0
+bg_color = Color(0.7394549, 0.75034785, 0.89209616, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.59607846, 0.72156864, 0.5529412, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_g4xy1"]
 color = Color(1, 1, 1, 1)
 thickness = 4
@@ -22,6 +61,9 @@ corner_radius_bottom_left = 16
 
 [resource]
 default_font = ExtResource("1_ifhjx")
+Button/styles/hover = SubResource("StyleBoxFlat_ifhjx")
+Button/styles/normal = SubResource("StyleBoxFlat_bn1a5")
+Button/styles/pressed = SubResource("StyleBoxFlat_se3xb")
 HSeparator/styles/separator = SubResource("StyleBoxLine_g4xy1")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_xdrax")
 RichTextLabel/colors/font_shadow_color = Color(0, 0, 0, 1)

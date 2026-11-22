@@ -40,6 +40,11 @@ var gears: int = 0:
 		gears = clampi(value, 0, 3)
 
 func _ready() -> void:
+	_toggle_road_lines(Global.road_lines)
+	SignalBus.road_lines_toggled.connect(
+		_toggle_road_lines
+	)
+	
 	_place_player_on_lane(0)
 	_start_pull_back_cutscene()
 	
@@ -57,6 +62,9 @@ func _ready() -> void:
 	road_object_spawner.player_collided_with_road_object.connect(
 		_on_player_collided_with_road_object
 	)
+
+func _toggle_road_lines(toggle: bool) -> void:
+	$ParallaxLayers/RoadParallax.visible = toggle
 
 func _tween_gear_spent() -> void:
 	var gear_tween := create_tween()
